@@ -1,8 +1,25 @@
 # Results and interpretation
 
+## Discovery 37: source-observation ablation
+
+Table II comes from the 37 observation records in the prepublished ClosureProbe v0.3 corpus. The source file was frozen on 2026-08-15. Thirteen trace records in the 50-case package belong to the separate boundary-trace cohort.
+
+The independent [37-row replay](../experiments/discovery37/README.md) generates exactly:
+
+| Rule | Local commits | Source-licensed | Source-unlicensed |
+| --- | ---: | ---: | ---: |
+| R0 | 36 | 9 | 27 |
+| R1 | 34 | 9 | 25 |
+| R2 | 23 | 9 | 14 |
+| R3 | 19 | 9 | 10 |
+| RQ | 9 | 9 | 0 |
+
+The [row-level results](../experiments/discovery37/results/rows.csv) include each source identity, the five generic predicates, and all decision columns. The [aggregate JSON](../experiments/discovery37/results/table_ii.json) records profile counts and the original corpus identity. The official ClosureProbe CLI independently reproduces its 50 frozen conformance classifications.
+
+
 ## Frozen source cases
 
-G7 and G8 use 16 controlled source observations in eight matched pairs. The source-qualified policy permits eight actions and blocks eight. The projected four-field output permits all 16, including eight source-disallowed local ledger commits. Both runs use the installed Agents SDK and official MCP packages with distinct transports. Their tool-call arguments select individual fixture IDs.
+G7 and G8 use 16 controlled source observations in eight matched pairs. The source-qualified policy permits eight actions and blocks eight. The projected five-field output permits all 16, including eight source-disallowed local ledger commits. Both runs use the installed Agents SDK and official MCP packages with distinct transports. Their tool-call arguments select individual fixture IDs.
 
 G9 replays the same 16 cases with an out-of-band fixture selection and identical model-visible tool calls within each matched pair. All eight pairwise full visible transcripts match. Five pre-fixed request-binding perturbations are blocked by the test policy. This stage uses a local Node protocol replay.
 
