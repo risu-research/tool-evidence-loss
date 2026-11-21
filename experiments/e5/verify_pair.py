@@ -90,7 +90,7 @@ def compare(before_path, after_path):
             "before": b["summary"],
             "after": a["summary"],
         },
-        "result": "The pre-merge flat response hides an older matching HOLD record at limit=1. The merged status and cursor allow full traversal and withholding of the test release marker.",
+        "result": "The pre-merge first page omitted a HOLD match and had no continuation handle. The merged page status and cursor allow full traversal and withholding of the test release marker.",
         "scope": "original FastMCP search tool with synthetic source data and study-owned marker writes",
     }
 
