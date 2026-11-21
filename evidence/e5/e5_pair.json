@@ -20,7 +20,7 @@
   "merged_pull_request": "https://github.com/tony/agentgrep/pull/64",
   "pass": true,
   "project": "tony/agentgrep",
-  "result": "The pre-merge flat response hides an older matching HOLD record at limit=1. The merged status and cursor allow full traversal and withholding of the test release marker.",
+  "result": "The pre-merge first page omitted a HOLD match and had no continuation handle. The merged page status and cursor allow full traversal and withholding of the test release marker.",
   "revisions": {
     "after": "6b2d3465767421f113acf684473384db00ebf619",
     "before": "9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83"

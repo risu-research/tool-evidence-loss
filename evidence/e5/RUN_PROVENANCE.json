@@ -3,11 +3,11 @@
   "file_sha256": {
     "e5_after.json": "5491d1f5f4962754ec622a8e7b6ed6a32a73857983b5d4889ce699a919cf430f",
     "e5_before.json": "c35d5b13b96ede7cd8f6719ab95ef18e9fd1b86cdc43eb7d6fa4db269b092efd",
-    "e5_pair.json": "2f5f54035994b2abcfa85adf171b2e9660d7685f9cfe1393e1e27a1b01d8cf81",
+    "e5_pair.json": "75d4bf21990d3155d5f7bf7125876c992883b0e769c6620fb496351129ddb103",
     "e5_probe_after.json": "9abd66b4685be69691c0865c5b8fc25e8c966367a5fff6d22aae5fe7e2cf1e81",
     "e5_probe_before.json": "ad810ff397a27b3c0ddb03e24d3af7a310bd8a4472c2e9f526ae26d32c0f3fc5"
   },
-  "github_actions_run": "44958918080",
+  "github_actions_run": "44958989889",
   "heldout_source_records": 3,
   "historical_commits": {
     "after": "6b2d3465767421f113acf684473384db00ebf619",
@@ -15,5 +15,5 @@
   },
   "source": "https://github.com/tony/agentgrep",
   "study": "S2AI E5 independent source MCP paging",
-  "test_commit": "72816f0666c4a49c9c0a4f458c245fba6e91ea3d"
+  "test_commit": "b182e4555f8802e87093c889ff4629593fa87bb6"
 }
