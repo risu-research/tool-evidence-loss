@@ -246,7 +246,7 @@ def run(args):
                     assert request["supportsAllDrives"] is True
                     field_requested = "incompleteSearch" in request["fields"]
                     check(field_requested == (not pre), "Historical field-mask contrast failed")
-                    check(("incompleteSearch" in result) == (not pre or "error" in result and False),
+                    check(("incompleteSearch" in result) == ((not pre) and ("error" not in result)),
                           "Historical output field contrast failed")
                     if state == "COMPLETE_EMPTY" and not pre:
                         check(result["incompleteSearch"] is False, "Complete status lost")
