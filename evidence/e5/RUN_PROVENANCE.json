@@ -7,7 +7,7 @@
     "e5_probe_after.json": "9abd66b4685be69691c0865c5b8fc25e8c966367a5fff6d22aae5fe7e2cf1e81",
     "e5_probe_before.json": "ad810ff397a27b3c0ddb03e24d3af7a310bd8a4472c2e9f526ae26d32c0f3fc5"
   },
-  "github_actions_run": "44958989889",
+  "github_actions_run": "44959061247",
   "heldout_source_records": 3,
   "historical_commits": {
     "after": "6b2d3465767421f113acf684473384db00ebf619",
@@ -15,5 +15,5 @@
   },
   "source": "https://github.com/tony/agentgrep",
   "study": "S2AI E5 independent source MCP paging",
-  "test_commit": "b182e4555f8802e87093c889ff4629593fa87bb6"
+  "test_commit": "a7393b87d476c14311772c7c04297ccc1a629bc7"
 }
