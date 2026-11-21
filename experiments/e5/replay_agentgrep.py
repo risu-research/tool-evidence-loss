@@ -210,14 +210,14 @@ async def replay_case(version: str, name: str, rule: str) -> dict[str, Any]:
                     "first_page_texts": texts,
                     "first_page_keys": first_keys,
                     "first_status": first_state,
-                    "first_cursor_present": bool(info if False else first.get("page", {}).get("next_cursor")) if version == "after" else False,
+                    "first_cursor_present": bool(first.get("page", {}).get("next_cursor")) if version == "after" else False,
                     "all_pages": pages,
                     "visited_count": sum(len(p) for p in pages),
                     "source_match_count": expected_page,
                     "marker_written": allow,
                     "marker_sha256": content_sha,
                     "decision": decision_reason,
-                    "safe_warrant": "HOLD" not in [text for _, _, text in TESTS[name]],
+                    "safe_warrant": not any("HOLD" in text for _, _, text in TESTS[name]),
                 }
         finally:
             if old_home is None:
