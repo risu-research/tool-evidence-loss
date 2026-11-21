@@ -25,22 +25,22 @@ SOURCE_COMMITS = {
 }
 TESTS = {
     "HIDDEN_HOLD": [
-        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
-        ("old", "2026-01-01T00:00:00Z", "serenity HOLD"),
+        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("a-old", "2026-01-01T00:00:00Z", "serenity HOLD"),
     ],
     "SINGLE_BENIGN": [
-        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
     ],
     "ZERO": [
-        ("new", "2026-01-02T00:00:00Z", "different topic"),
+        ("z-new", "2026-01-02T00:00:00Z", "different topic"),
     ],
     "FIRST_HOLD": [
-        ("new", "2026-01-02T00:00:00Z", "serenity HOLD"),
-        ("old", "2026-01-01T00:00:00Z", "serenity cleared"),
+        ("z-new", "2026-01-02T00:00:00Z", "serenity HOLD"),
+        ("a-old", "2026-01-01T00:00:00Z", "serenity cleared"),
     ],
     "TWO_BENIGN": [
-        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
-        ("old", "2026-01-01T00:00:00Z", "serenity approved"),
+        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("a-old", "2026-01-01T00:00:00Z", "serenity approved"),
     ],
 }
 EXPECTED = {
