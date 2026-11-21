@@ -100,6 +100,41 @@ jobs:
           print(stage,'fresh official SDK replay matches 4 archived JSON outputs')
           PY
 
+  source-identity:
+    name: Compare pinned original source bytes
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch historical G7 and G8 source commits
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _source_audit
+          git clone --quiet https://github.com/risu-research/formal-exec-2609.git _source_audit/g7
+          git -C _source_audit/g7 checkout --quiet 8ad25af26a2f6d78f98a5c5c0b280220377254e8
+          git clone --quiet https://github.com/risu-research/stc-exec-2609.git _source_audit/g8
+          git -C _source_audit/g8 checkout --quiet dadb9417bec502ba620b8b081343325f99b48cbb
+          for f in package.json package-lock.json expected_sealed.json server_cases.json source_oracle.mjs mcp_server_official.mjs run_agents_official.mjs; do
+            cmp "experiments/g7/$f" "_source_audit/g7/runs/s2ai-official-runtime/$f"
+          done
+          for f in package.json package-lock.json cases.json expected.json oracle.mjs http_server.mjs run_http.mjs; do
+            cmp "experiments/g8/$f" "_source_audit/g8/transport-confirm/$f"
+          done
+          echo "14 pinned source files match their historical public commits"
+
+      - name: Confirm original upstream Google Drive code identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/piotr-agier/google-drive-mcp.git _source_audit/target
+          git -C _source_audit/target checkout --quiet 9509fb8bba8ad15f7cdb79a54dbd850c13eb058b
+          test "$(git -C _source_audit/target hash-object src/tools/drive.ts)" = 'a32a46a470d1ee14a5fa9a81a3885eb8dbd29739'
+          git clone --quiet https://github.com/domdomegg/google-drive-mcp.git _source_audit/control
+          git -C _source_audit/control checkout --quiet 395971084f5d8504e5b2934dab4c2cc6e2f210b5
+          cmp "experiments/e1/upstream_control_files_list.ts" "_source_audit/control/src/tools/files-list.ts"
+          echo "Target source and comparison implementation match pinned upstream code"
+
   full-upstream-mcp:
     name: E2 + E3 full upstream MCP over stdio and loopback HTTP
     runs-on: ubuntu-latest
