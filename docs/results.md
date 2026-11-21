@@ -49,3 +49,20 @@ Both versions of the count-only consumer upload under incomplete search coverage
 The [recorded provider receipts](../evidence/e4/) confirm two actual local HTTP writes before repair and three after repair. An independent run through the installed Google API Discovery v3 client verifies the exact outbound `fields` parameters and the JSON outputs. The historical Agno Google Drive unit suite passes 55 tests at the repaired commit.
 
 The original Agno report establishes historical external relevance. The 20 source states and consumer rules remain bounded experimental fixtures. The measured counts describe replayed local effects.
+
+## Separate source type: agentgrep page-completion replay (E5)
+
+An independent historical change in [agentgrep](https://github.com/tony/agentgrep/pull/64) added search status, continuation cursors, page counts, and result references to its MCP tools.
+
+E5 checks out the original source before and after the June 14, 2026 merge. Five synthetic local Codex search fixtures, each under two fixed decision rules, produce 20 source/consumer conditions.
+
+| Consumer | Original interface approvals | Merged interface approvals |
+| --- | ---: | ---: |
+| First page only | 4/5 | 4/5 |
+| Complete results required | 0/5 | 3/5 |
+
+A first-page consumer accepts a marker despite a HOLD result elsewhere in its local source set in one fixture per revision. The exact fixture differs because the historical versions choose different initial records at the page limit. The [source-order audit](../experiments/e5/SOURCE_ORDER_NOTE.md) records the raw selections and the corrected interpretation.
+
+The completion-aware consumer follows the merged version's cursor through every page, then permits the three benign fixtures. An independent three-record test returns the newest match alone in the original implementation and all three matches over `bounded → bounded → complete` pages after the merge, with no duplication.
+
+The released upstream project is a read-only MCP search tool. The local release-marker files in E5 are test-harness effects. The [E5 output](../evidence/e5/) contains the source identities, first-page decisions, observed page sequence, and hashes of the local test writes.
