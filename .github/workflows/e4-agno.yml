@@ -110,3 +110,28 @@ jobs:
             results/e4_python_packages.txt
             results/e4_discovery_before.json
             results/e4_discovery_after.json
+
+  publish-e4-evidence:
+    if: github.ref == 'refs/heads/e4-historical-agno-20261121'
+    needs: agno-original-before-after
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: e4-historical-agno-before-after-evidence
+          path: results
+      - name: Validate and freeze controlled public results
+        run: python3 experiments/e4/publish_results.py --source results --dest evidence/e4
+      - name: Commit only approved E4 evidence files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/e4/
+          git diff --cached --check
+          git commit -m "Archive verified E4 historical repair evidence"
+          git push origin HEAD:refs/heads/e4-historical-agno-20261121
