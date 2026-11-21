@@ -68,6 +68,33 @@ def frozen_audit():
         require((results[0]==results[1])==(rev=='before'),
                 'E4 completeness distinction '+rev)
     checks['E4-historical-repair']='20 cases; 5 recorded writes; original Google API Discovery controls'
+    e5base=ROOT/'evidence/e5'
+    e5=json.loads((e5base/'e5_pair.json').read_text())
+    require(e5['pass'] is True and e5['revisions']=={
+        'before':'9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83',
+        'after':'6b2d3465767421f113acf684473384db00ebf619'},'E5 original revision pins')
+    require(e5['source_results']['before']['markers']=={'visible':4,'complete':0},
+            'E5 original action counts')
+    require(e5['source_results']['after']['markers']=={'visible':4,'complete':3},
+            'E5 post-merge action counts')
+    for rev in ('before','after'):
+        data=json.loads((e5base/f'e5_{rev}.json').read_text())
+        require(data['source']['source_commit']==e5['revisions'][rev] and len(data['cases'])==10,
+                'E5 historical source identity and case count')
+        probe=json.loads((e5base/f'e5_probe_{rev}.json').read_text())
+        require(probe['source']['source_commit']==e5['revisions'][rev],
+                'E5 held-out source identity')
+    b=json.loads((e5base/'e5_probe_before.json').read_text())
+    a=json.loads((e5base/'e5_probe_after.json').read_text())
+    require(b['reported_texts']==['serenity newest'] and b['page_count']==1,
+            'E5 original bounded-page visibility')
+    require(a['reported_texts']==['serenity newest','serenity middle','serenity oldest'] and
+            a['page_count']==3 and a['complete_source_recovered'] and not a['duplicates'],
+            'E5 repaired full page traversal')
+    origin=json.loads((e5base/'RUN_PROVENANCE.json').read_text())
+    for name,digest_value in origin['file_sha256'].items():
+        require(digest(e5base/name)==digest_value,'E5 archived SHA-256 '+name)
+    checks['E5-cross-source-pages']='20 cases; actual original agentgrep MCP; 3-page independent probe'
     checks['recorded-cases']='G7 16; G8 16; G9 8 pairs; E1 10 checks; E2 2 transports; E3 5 scenarios'
     return checks
 
