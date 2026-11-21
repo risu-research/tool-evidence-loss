@@ -1,0 +1,173 @@
+name: Verify evidence and reproduce runtimes
+
+on:
+  push:
+    branches:
+      - main
+      - artifact-audit-20261121
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-evidence:
+    name: Hashes, provenance and G9 replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify frozen inputs, archived outcomes, and public-file scope
+        run: python3 scripts/verify_public.py --g9
+
+  e1-replay:
+    name: E1 real source-branch and comparison
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install fixed TypeScript compiler
+        run: npm install --global --no-audit --no-fund typescript@5.8.3
+      - name: Rerun both source-level implementations
+        working-directory: experiments/e1
+        run: bash run_all.sh
+      - name: Compare recorded results
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          a=Path('experiments/e1/results')
+          b=Path('evidence/e1')
+          checks=json.loads((a/'checks.json').read_text())
+          expected=json.loads((b/'checks.json').read_text())
+          assert checks==expected
+          for name in ['results.json','control.json']:
+              fresh=json.loads((a/name).read_text())
+              historical=json.loads((b/name).read_text())
+              assert fresh==historical, name
+          print('E1 source replay equals recorded evidence')
+          PY
+
+  original-agents-sdk:
+    name: Official SDK replay / ${{ matrix.stage }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: [g7, g8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Copy frozen source to isolated run directory
+        shell: bash
+        run: cp -a "experiments/${{ matrix.stage }}" "$RUNNER_TEMP/${{ matrix.stage }}"
+      - name: Install pinned SDK packages
+        working-directory: ${{ runner.temp }}/${{ matrix.stage }}
+        run: npm ci --no-audit --no-fund
+      - name: Execute original SDK runner
+        shell: bash
+        working-directory: ${{ runner.temp }}/${{ matrix.stage }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ matrix.stage }}" == 'g7' ]]; then node run_agents_official.mjs; else node run_http.mjs; fi
+      - name: Compare new result with original recorded evidence
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          stage='${{ matrix.stage }}'
+          frozen=Path('experiments')/stage
+          new=Path(os.environ['RUNNER_TEMP'])/stage
+          names=['official-runtime-summary.json','official-runtime-rows.json','projection-ledger.json','source-ledger.json'] if stage=='g7' else ['http-summary.json','http-rows.json','http-projection-ledger.json','http-source-ledger.json']
+          for name in names:
+              original=json.loads((frozen/name).read_text())
+              reproduced=json.loads((new/name).read_text())
+              assert original==reproduced,(stage,name)
+          print(stage,'fresh official SDK replay matches 4 archived JSON outputs')
+          PY
+
+  full-upstream-mcp:
+    name: E2 + E3 full upstream MCP over stdio and loopback HTTP
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Obtain immutable upstream source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/piotr-agier/google-drive-mcp.git upstream
+          git -C upstream checkout --quiet 9509fb8bba8ad15f7cdb79a54dbd850c13eb058b
+          test "$(git -C upstream rev-parse HEAD)" = '9509fb8bba8ad15f7cdb79a54dbd850c13eb058b'
+          test -z "$(git -C upstream status --porcelain)"
+      - name: Install upstream dependencies and attach independent tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd upstream
+          npm ci --ignore-scripts --no-audit --no-fund
+          cp ../experiments/e2/*.ts test/integration/
+          cp ../experiments/e3/*.ts test/integration/
+          git status --short
+      - name: Compile the complete original MCP server and 3 integration modules
+        working-directory: upstream
+        run: npm run test:build
+      - name: Run in-memory, child-process stdio, and stateful HTTP effect tests
+        shell: bash
+        working-directory: upstream
+        run: |
+          set -euo pipefail
+          MCP_TESTING=1 node --test \
+            .tmp-test/test/integration/s2ai_mcp_full_runtime.test.js \
+            .tmp-test/test/integration/s2ai_stdio_client.test.js \
+            .tmp-test/test/integration/e3_downstream_effect.test.js | tee ../upstream-test.log
+      - name: Check independent result and HTTP-effect evidence
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          saved=Path('evidence')
+          fresh=Path('upstream/results')
+          a=json.loads((fresh/'s2ai_full_runtime.json').read_text())
+          b=json.loads((fresh/'s2ai_stdio_runtime.json').read_text())
+          expected_a=json.loads((saved/'e2/s2ai_full_runtime.json').read_text())
+          expected_b=json.loads((saved/'e2/s2ai_stdio_runtime.json').read_text())
+          assert a['checks']==expected_a['checks']
+          assert b['checks']==expected_b['checks']
+          assert a['observations'][1]['hash_a']==expected_a['observations'][1]['hash_a']
+          assert b['sha256']==expected_b['sha256']
+          e=json.loads((fresh/'e3_downstream_report.json').read_text())
+          old=json.loads((saved/'e3/e3_downstream_report.json').read_text())
+          assert e['summary']==old['summary']=={'count':5,'writes':3,'unlicensed_writes':1}
+          receipts=[json.loads(x) for x in (fresh/'e3_provider_writes.jsonl').read_text().splitlines()]
+          assert receipts==e['provider_writes']
+          assert [x['name'] for x in e['run_cases']]==[x['name'] for x in old['run_cases']]
+          assert [x['executed'] for x in e['run_cases']]==[x['executed'] for x in old['run_cases']]
+          print('E2 2 transports and E3 HTTP write/readback match archival controls')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upstream-mcp-replay-results
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            upstream-test.log
+            upstream/results/s2ai_full_runtime.json
+            upstream/results/s2ai_stdio_runtime.json
+            upstream/results/e3_downstream_report.json
+            upstream/results/e3_provider_writes.jsonl

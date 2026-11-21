@@ -1,47 +1,60 @@
 # When Tool Interfaces Lose Evidence Needed for Action
 
-Reproducible research artifact for the S2AI 2026 paper *When Tool Interfaces Lose Evidence Needed for Action*.
+Reproducible experiments for the S2AI 2026 paper *When Tool Interfaces Lose Evidence Needed for Action*.
 
-A tool response can report an empty result after the provider has searched only part of the requested scope. We test how this missing coverage information travels through MCP interfaces and how a downstream write behaves when the caller relies on the displayed result.
+A search can return zero files after covering only part of its requested scope. The experiments below measure how this distinction survives tool adapters and MCP transports, then test its effect on a follow-up write.
 
-## Experiments
+## Results
 
-| ID | Test | Recorded observation |
+| Experiment | Execution path | Verified result |
 | --- | --- | --- |
-| G7 | OpenAI Agents SDK and MCP over stdio | 16 controlled source cases; 8 source-qualified actions; 8 blocked |
-| G8 | OpenAI Agents SDK and MCP over Streamable HTTP | Same 16 source cases across a second transport |
-| G9 | Source-derived tool projection and matched visible transcripts | 8 matching pairs, 8 identical full visible transcripts, 5 request-binding challenges |
-| E1 | Two public Google Drive MCP search implementations | Search-completeness field lost in one implementation and retained in the comparison |
-| E2 | Full upstream MCP server over in-memory and stdio transports | Identical MCP outputs for complete and incomplete search conditions |
-| E3 | Full upstream MCP search, follow-up write, and independent readback | 3 local provider writes in 5 scenarios, including one unsupported release marker |
+| G7 | Official Agents SDK and MCP stdio | 16 controlled source states; 8 permitted actions and 8 blocked |
+| G8 | Official Agents SDK and MCP Streamable HTTP | Same 16 source states across HTTP |
+| G9 | Source-derived projection and full visible transcript replay | 8 indistinguishable pairs; 5 request-binding challenges |
+| E1 | Search handlers from two public Google Drive MCP projects | Missing search-completeness evidence in one implementation; preserved in the comparison |
+| E2 | Full upstream MCP server with in-memory and stdio clients | Identical MCP responses for complete and incomplete empty searches |
+| E3 | Full upstream MCP server, stdio client, local HTTP provider | 3 confirmed writes across 5 conditions, including 1 write under incomplete search coverage |
 
-G7 through G9 use the same original set of 16 controlled source cases. E1 through E3 extend the study with pinned third-party implementations. Each result identifies its exact execution boundary.
+G7–G9 share a frozen set of 16 controlled source cases. E1–E3 use pinned third-party implementation sources. The E3 client follows a fixed decision rule; the write reaches a local HTTP test provider and is independently read back through MCP.
 
 ## Reproduce
 
-Run the independently pinned experiments through GitHub Actions under **Actions**. The release workflow also publishes source files, frozen fixtures, compact evidence, and script-level commands inside this repository.
-
-After the artifact import completes, use:
+Requires Python 3 and Node.js 22. The initial integrity and G9 replay use Node built-ins.
 
 ```bash
 bash scripts/verify-local.sh
 ```
 
-The GitHub Actions workflows run fresh installations for the official SDK and the full upstream MCP server tests.
+E1 executes the original search-handler excerpts with the TypeScript compiler:
 
-## Scope
+```bash
+cd experiments/e1
+bash run_all.sh
+```
 
-- G7 and G8: installed SDKs, controlled provider fixtures, deterministic consumers, local effect ledgers.
-- G9: independent local Node.js replay with pre-fixed cases and a full visible-transcript comparison.
-- E1: source-level replay of two externally authored implementations.
-- E2: installed third-party MCP server with official MCP clients and two transports.
-- E3: installed third-party MCP server, stdio client, loopback HTTP test provider, actual mocked write operation, and state readback.
-- Production frequency: unmeasured. Provider data and follow-up policies are controlled test conditions.
+The official SDK experiments install their frozen npm dependencies and run in isolated directories:
 
-## Source provenance
+```bash
+bash scripts/replay-official.sh
+```
 
-G7 and G8 are recovered from pinned public research-execution commits. E1, E2, and E3 record source commits of the external Google Drive MCP implementations. Each experiment carries its run links and origin checks in [docs/provenance.md](docs/provenance.md).
+The [GitHub Actions verification workflow](.github/workflows/verify.yml) also installs the complete pinned third-party MCP server, runs E2 over in-memory and stdio transports, and runs E3 through a separate local HTTP provider with recorded effects.
 
-## Article and artifact status
+## Layout
 
-The article and this runnable artifact have separate publication records. The repository contains experimental source, input fixtures, execution receipts, and reproduction instructions. Citation and archival identifiers can be added when a versioned artifact release is prepared.
+- [`experiments/g7`](experiments/g7) and [`experiments/g8`](experiments/g8) contain frozen source, fixtures, dependency locks, and original execution records.
+- [`experiments/g9`](experiments/g9) contains source-derived projection, exact request-binding tests, and frozen one-shot results.
+- [`experiments/e1`](experiments/e1) contains the pinned public search-handler comparisons.
+- [`experiments/e2`](experiments/e2) and [`experiments/e3`](experiments/e3) contain the full-server integration tests.
+- [`evidence`](evidence) contains captured MCP outputs and independent HTTP write receipts.
+- [`EVIDENCE_SHA256SUMS.txt`](EVIDENCE_SHA256SUMS.txt) fixes the initial publication set at the byte level.
+- [`docs/provenance.md`](docs/provenance.md) records upstream commits and original public execution runs.
+- [`docs/results.md`](docs/results.md) maps results to their experimental scope.
+
+## Measurement scope
+
+The original 16 states are controlled fixtures. E1–E3 introduce publicly authored adapter code and installed MCP runtime tests. Google API responses and E3 effects use local test providers. The downstream policy is deterministic. Production incidence and autonomous-agent behavior remain targets for separate empirical measurement.
+
+## Reuse
+
+The experiment harness and documents are shared under MIT. Third-party implementation excerpts retain their original licensing and attribution, as described in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
