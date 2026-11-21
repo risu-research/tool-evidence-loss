@@ -1,0 +1,103 @@
+{
+  "cohort": {
+    "excluded_cross_boundary_traces": 13,
+    "observations": 37,
+    "source_licensed": 9,
+    "total_source_cases": 50
+  },
+  "profiles": {
+    "aws-dynamodb-query": {
+      "R3_commits": 3,
+      "R3_unlicensed_case_ids": [
+        "DDB-005"
+      ],
+      "observations": 5,
+      "source_licensed": 2
+    },
+    "elasticsearch-search-zero": {
+      "R3_commits": 6,
+      "R3_unlicensed_case_ids": [
+        "ES-002",
+        "ES-003",
+        "ES-004",
+        "ES-007",
+        "ES-008"
+      ],
+      "observations": 8,
+      "source_licensed": 1
+    },
+    "generic-enumeration": {
+      "R3_commits": 2,
+      "R3_unlicensed_case_ids": [
+        "GEN-002"
+      ],
+      "observations": 6,
+      "source_licensed": 1
+    },
+    "google-drive-files-list": {
+      "R3_commits": 3,
+      "R3_unlicensed_case_ids": [
+        "DRV-006"
+      ],
+      "observations": 6,
+      "source_licensed": 2
+    },
+    "graphql-relay-forward-connection": {
+      "R3_commits": 1,
+      "R3_unlicensed_case_ids": [],
+      "observations": 5,
+      "source_licensed": 1
+    },
+    "microsoft-graph-delta-traversal": {
+      "R3_commits": 4,
+      "R3_unlicensed_case_ids": [
+        "MSG-005",
+        "MSG-007"
+      ],
+      "observations": 7,
+      "source_licensed": 2
+    }
+  },
+  "rules": {
+    "R0": "empty returned container",
+    "R1": "R0 plus execution success",
+    "R2": "R1 plus initial request and final segment",
+    "R3": "R2 plus observed zero",
+    "RQ": "source-qualified label frozen with the original corpus"
+  },
+  "source": {
+    "commit": "12fae2c0cb0909a43f487323fb00e7372b1f3377",
+    "corpus_version": "closureprobe-corpus-v0.3.0",
+    "git_blob_sha1": "f262f6150d8fc97249e88f01d6db1f914d7d1b82",
+    "path": "corpus/v0.3/cases.json",
+    "repository": "https://github.com/risu-research/closureprobe",
+    "sha256": "f1d0fd842738a74eb30978164cd68500fa11a30af2d7899a50ef0dd23f19e70a"
+  },
+  "table_ii": {
+    "R0": {
+      "commits": 36,
+      "licensed": 9,
+      "unlicensed": 27
+    },
+    "R1": {
+      "commits": 34,
+      "licensed": 9,
+      "unlicensed": 25
+    },
+    "R2": {
+      "commits": 23,
+      "licensed": 9,
+      "unlicensed": 14
+    },
+    "R3": {
+      "commits": 19,
+      "licensed": 9,
+      "unlicensed": 10
+    },
+    "RQ": {
+      "commits": 9,
+      "licensed": 9,
+      "unlicensed": 0
+    }
+  }
+}
