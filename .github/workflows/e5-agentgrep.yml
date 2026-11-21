@@ -1,0 +1,83 @@
+name: E5 independent agentgrep MCP paging replay
+
+on:
+  push:
+    branches:
+      - e5-agentgrep-cross-source-20261121
+    paths:
+      - 'experiments/e5/**'
+      - '.github/workflows/e5-agentgrep.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-before-after:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install original Python 3.14 runtime
+        run: |
+          uv python install 3.14
+          uv --version
+      - name: Fetch two exact historical agentgrep commits
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init --quiet upstream
+          git -C upstream remote add origin https://github.com/tony/agentgrep.git
+          git -C upstream fetch --quiet --no-tags --filter=blob:none origin \
+            9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83 \
+            6b2d3465767421f113acf684473384db00ebf619
+          git -C upstream worktree add --quiet --detach ../agentgrep-before 9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83
+          git -C upstream worktree add --quiet --detach ../agentgrep-after 6b2d3465767421f113acf684473384db00ebf619
+          test "$(git -C agentgrep-before rev-parse HEAD)" = "9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83"
+          test "$(git -C agentgrep-after rev-parse HEAD)" = "6b2d3465767421f113acf684473384db00ebf619"
+          test -z "$(git -C agentgrep-before status --porcelain)"
+          test -z "$(git -C agentgrep-after status --porcelain)"
+          git -C agentgrep-before hash-object src/agentgrep/mcp/tools/search_tools.py
+          git -C agentgrep-after hash-object src/agentgrep/mcp/tools/search_tools.py
+      - name: Install original frozen dependency environments
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd agentgrep-before && uv sync --frozen --no-dev --python 3.14)
+          (cd agentgrep-after && uv sync --frozen --no-dev --python 3.14)
+          agentgrep-before/.venv/bin/python --version
+          agentgrep-after/.venv/bin/python --version
+      - name: Replay original MCP before merge
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          agentgrep-before/.venv/bin/python experiments/e5/replay_agentgrep.py \
+            --source agentgrep-before --revision before --output results/e5_before.json \
+            | tee results/e5_before.log
+      - name: Replay original MCP after merge
+        shell: bash
+        run: |
+          set -euo pipefail
+          agentgrep-after/.venv/bin/python experiments/e5/replay_agentgrep.py \
+            --source agentgrep-after --revision after --output results/e5_after.json \
+            | tee results/e5_after.log
+      - name: Independent source-agnostic comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 experiments/e5/verify_pair.py results/e5_before.json results/e5_after.json \
+            --output results/e5_pair.json | tee results/e5_pair.log
+      - name: Capture exact dependency manifests
+        shell: bash
+        run: |
+          agentgrep-before/.venv/bin/python -m pip freeze > results/e5_packages_before.txt
+          agentgrep-after/.venv/bin/python -m pip freeze > results/e5_packages_after.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e5-independent-source-paging-verified
+          path: results/
+          if-no-files-found: warn
+          retention-days: 60
