@@ -56,6 +56,7 @@ def git_hash(path):
 
 def source_hashes():
     pins={
+        'experiments/e1/upstream_control_files_list.ts':'8e5bba41101d24b49e299d9ef3c8bde46a047719',
         'experiments/e2/s2ai_mcp_full_runtime.test.ts':'e90eae67262b8cf9a988cb6a74e049deac8c8d24',
         'experiments/e2/s2ai_stdio_client.test.ts':'4a31eeb543d7508260816da2d23a6ec944c77588',
         'experiments/e2/s2ai_stdio_server.ts':'3c4881bc1aa33e0ee1b39bc91b2093e86dc60396',
