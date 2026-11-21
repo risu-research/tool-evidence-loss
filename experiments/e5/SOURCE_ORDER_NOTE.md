@@ -1,27 +1,38 @@
-# E5 · Source-order control record
+# E5 · Historical first-page selection audit
 
-The [original protocol](PROTOCOL.md) specifies a five-fixture comparison of matching search records, a one-record limit, and two downstream consumer rules.
+The [original protocol](PROTOCOL.md) fixed five source-data scenarios and two downstream consumer rules before execution.
 
-## Initial replay and observed ordering
+## Observed selection difference
 
-The first implementation used short fixture file names `new.jsonl` and `old.jsonl`. The unmodified pre-merge agentgrep implementation returned a different initial record from the merged implementation in some two-hit cases.
+The original pre-merge version returned a different first-page record from the repaired version in three two-record cases. The actual results were:
 
-- Initial pre-merge observed first pages: `HIDDEN_HOLD → serenity HOLD`, `FIRST_HOLD → serenity cleared`, `TWO_BENIGN → serenity approved`.
-- Initial post-merge observed first pages: `HIDDEN_HOLD → serenity cleared`, `FIRST_HOLD → serenity HOLD`, `TWO_BENIGN → serenity cleared`.
-- Earlier execution records: [E5 run #44958329291](https://github.com/risu-research/tool-evidence-loss/actions/runs/44958329291).
+| Scenario | Pre-merge first record | Post-merge first record |
+| --- | --- | --- |
+| HIDDEN_HOLD | serenity HOLD | serenity cleared |
+| FIRST_HOLD | serenity cleared | serenity HOLD |
+| TWO_BENIGN | serenity approved | serenity cleared |
 
-The two source revisions apply limits at different points in the stream. The code performs result sorting after collecting a limited subset, so changes in the discovery path also affect the initial candidate set.
+The original source-iteration path and result limit select a different first-page candidate set from the merged implementation, which requests an additional record before sorting and slicing the page.
 
-## Matched-first-page source-order control
+The initial protocol assumed the newest record would appear first under both historical versions. This assumption failed for the original implementation. A subsequent exploratory change to fixture file names did not alter the behavior, so the original file names and fixed input records were restored. The historical selection effect is retained as an observed result.
 
-To isolate completion metadata from first-page selection, the two-record fixtures now name the newest record `z-new.jsonl` and the older record `a-old.jsonl`. Record text, timestamps, source count, search term, search limit, blocked action policy, and all five scenario definitions are preserved.
+Original diagnostic run: [#44958329291](https://github.com/risu-research/tool-evidence-loss/actions/runs/44958329291). Source-order confirmation: [#44958501014](https://github.com/risu-research/tool-evidence-loss/actions/runs/44958501014).
 
-The corrected experiment checks first-page equality across historical revisions before comparing completion metadata and consumer decisions. The original protocol and its expected outcome counts remain in the repository. This ordering correction was introduced after the preliminary run and is documented here.
+## Revised comparison with unchanged decisions
 
-## Held-out three-match probe
+Five scenario descriptions, search term `serenity`, limit 1, all source timestamps, and the visible-only and completion-aware decision rules remain unchanged. Total expected writes per version and consumer rule also remain unchanged.
 
-A second test uses `a-old.jsonl`, `b-middle.jsonl`, and `c-new.jsonl`, independent of the five action fixtures. The known source matches are `serenity newest`, `serenity middle`, and `serenity oldest`.
+The specific visible-only unsafe witness differs by revision:
 
-The first exploratory run showed one returned record without continuation before the PR; the merged code returned all three records over three distinct pages, reporting `bounded`, `bounded`, and `complete`. The probe checks the entire page sequence and reports ordering, duplicates, and missing records.
+- Pre-merge: `FIRST_HOLD/visible`, where the first record is benign and the newer HOLD record remains unseen.
+- Post-merge: `HIDDEN_HOLD/visible`, where the newer benign record is first and the older HOLD record sits on the next page.
+- Post-merge completion-aware: follows the cursor, sees each HOLD record, and withholds the release marker.
+- Pre-merge completion-aware: lacks a completion signal and withholds the release marker.
 
-This source-order control and held-out probe form part of the final E5 record. Any claim about rank order beyond these fixtures requires further evaluation.
+The final cross-version verifier checks these observed differences explicitly. This adjustment is an interpretation and expected-output correction after the initial exploratory run. Its provenance remains available in the run history.
+
+## Independent held-out three-record probe
+
+A second fixture contains three synthetic matched records with explicit timestamps and file names: `a-old`, `b-middle`, and `c-new`. Under the original pre-merge implementation, limit 1 returned `serenity newest` and no continuation. Under the merged implementation, the same query returned `serenity newest`, `serenity middle`, and `serenity oldest` over three pages with `bounded`, `bounded`, `complete` statuses, without duplicates.
+
+This probe provides a clean, equal-first-record comparison of source pagination capabilities. The two-record scenarios additionally document how limited source selection interacts with per-version ordering.
