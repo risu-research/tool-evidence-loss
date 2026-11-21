@@ -39,14 +39,26 @@ def compare(before_path, after_path):
           "Original pre-fix rule counts differ")
     check(a["summary"]["markers"] == {"visible": 4, "complete": 3},
           "Original post-fix rule counts differ")
-    check(b["summary"]["unwarranted_marker_cases"] ==
-          a["summary"]["unwarranted_marker_cases"] ==
-          ["HIDDEN_HOLD/visible"], "Historical missing-evidence witness changed")
+    check(b["summary"]["unwarranted_marker_cases"] == ["FIRST_HOLD/visible"],
+          "Original first-page source selection changed")
+    check(a["summary"]["unwarranted_marker_cases"] == ["HIDDEN_HOLD/visible"],
+          "Repaired page selection changed")
     for s in SCENARIOS:
         for consumer in ("visible", "complete"):
             x = pre[(s, consumer)]
             y = post[(s, consumer)]
-            check(x["first_page_texts"] == y["first_page_texts"], "Initial search results changed")
+            known_firsts = {
+                "HIDDEN_HOLD": ("serenity HOLD", "serenity cleared"),
+                "SINGLE_BENIGN": ("serenity cleared", "serenity cleared"),
+                "ZERO": (None, None),
+                "FIRST_HOLD": ("serenity cleared", "serenity HOLD"),
+                "TWO_BENIGN": ("serenity approved", "serenity cleared"),
+            }
+            expected_x, expected_y = known_firsts[s]
+            check(x["first_page_texts"] == ([] if expected_x is None else [expected_x]),
+                  "Original source selection drift: " + s)
+            check(y["first_page_texts"] == ([] if expected_y is None else [expected_y]),
+                  "Repaired source selection drift: " + s)
             check("query" in x["first_page_keys"] and "status" not in x["first_page_keys"],
                   "Original flat contract changed")
             check(y["first_status"] in ("complete", "bounded"),
@@ -57,10 +69,10 @@ def compare(before_path, after_path):
                 check(x["marker_written"] is False, "Old no-evidence case wrote marker")
                 check(y["visited_count"] == y["source_match_count"],
                       "Repaired full traversal missed results")
-    hidden_pre = pre[("HIDDEN_HOLD", "visible")]
+    hidden_pre = pre[("FIRST_HOLD", "visible")]
     hidden_after = post[("HIDDEN_HOLD", "complete")]
     check(hidden_pre["marker_written"] and not hidden_pre["safe_warrant"],
-          "Historical wrong action witness absent")
+          "Original wrong action witness absent")
     check(hidden_after["all_pages"] == [["serenity cleared"], ["serenity HOLD"]],
           "Actual original cursor did not recover hidden HOLD")
     check(hidden_after["marker_written"] is False, "HOLD marker incorrectly cleared")
@@ -87,9 +99,28 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("before")
     p.add_argument("after")
+    p.add_argument("--probe-before", required=True)
+    p.add_argument("--probe-after", required=True)
     p.add_argument("--output", required=True)
     a = p.parse_args()
     result = compare(a.before, a.after)
+    bb = json.loads(Path(a.probe_before).read_text())
+    aa = json.loads(Path(a.probe_after).read_text())
+    assert bb["source"]["source_commit"] == BASE
+    assert aa["source"]["source_commit"] == REPAIRED
+    expected = ["serenity newest", "serenity middle", "serenity oldest"]
+    assert bb["reported_texts"] == [expected[0]]
+    assert bb["missing"] == expected[1:]
+    assert not bb["complete_source_recovered"]
+    assert aa["reported_texts"] == expected
+    assert aa["complete_source_recovered"] and aa["ordering_consistent"]
+    assert not aa["duplicates"] and not aa["missing"]
+    assert [p["status"] for p in aa["pages"]] == ["bounded", "bounded", "complete"]
+    result["heldout_three_record_probe"] = {
+        "before": {"pages": bb["page_count"], "records": bb["reported_texts"]},
+        "after": {"pages": aa["page_count"], "records": aa["reported_texts"]},
+        "complete_recovery": True,
+    }
     Path(a.output).write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print("E5_PAIR_PASS " + json.dumps(result["source_results"], sort_keys=True))
 
