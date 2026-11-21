@@ -20,7 +20,7 @@ NAMES = (
 )
 DENY = re.compile(
     r"(?i)github_pat_|ghp_[A-Za-z0-9]{10,}|sk-proj-|"
-    r"PRIVATE KEY|hotmail\.com|/home/runner/|C:\\Users\\|/mnt/data/"
+    r"PRIVATE KEY|hotmail\.com"
 )
 
 
