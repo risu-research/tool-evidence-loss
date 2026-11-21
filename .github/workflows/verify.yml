@@ -21,7 +21,9 @@ jobs:
         with:
           node-version: '22'
       - name: Verify frozen inputs, archived outcomes, and public-file scope
-        run: python3 scripts/verify_public.py --g9
+        run: |
+          python3 scripts/verify_public.py --g9
+          python3 scripts/replay_discovery37.py --verify experiments/discovery37/results
 
   e1-replay:
     name: E1 real source-branch and comparison
