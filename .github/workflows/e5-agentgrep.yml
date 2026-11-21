@@ -63,6 +63,16 @@ jobs:
           agentgrep-after/.venv/bin/python experiments/e5/replay_agentgrep.py \
             --source agentgrep-after --revision after --output results/e5_after.json \
             | tee results/e5_after.log
+      - name: Held-out three-hit pagination integrity probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          agentgrep-before/.venv/bin/python experiments/e5/probe_long_pages.py \
+            --source agentgrep-before --revision before --output results/e5_probe_before.json \
+            | tee results/e5_probe_before.log
+          agentgrep-after/.venv/bin/python experiments/e5/probe_long_pages.py \
+            --source agentgrep-after --revision after --output results/e5_probe_after.json \
+            | tee results/e5_probe_after.log
       - name: Independent source-agnostic comparison
         shell: bash
         run: |
