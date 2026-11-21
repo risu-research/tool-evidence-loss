@@ -2,7 +2,7 @@
 
 Reproducible experiments for the S2AI 2026 paper *When Tool Interfaces Lose Evidence Needed for Action*.
 
-A search can return zero files after covering only part of its requested scope. The experiments below measure how this distinction survives tool adapters and MCP transports, then test its effect on a follow-up write.
+A Google Drive MCP adapter returns an empty result after dropping search-coverage evidence. An earlier agentgrep MCP search returned a capped page without a continuation handle. The experiments test what these tool responses expose and which downstream decisions follow.
 
 ## Results
 
@@ -16,8 +16,9 @@ A search can return zero files after covering only part of its requested scope. 
 | E2 | Full upstream MCP server with in-memory and stdio clients | Identical MCP responses for complete and incomplete empty searches |
 | E3 | Full upstream MCP server, stdio client, local HTTP provider | 3 confirmed writes across 5 conditions, including 1 write under incomplete search coverage |
 | E4 | Original Agno GoogleDriveTools before and after merged repair | 20 scenarios; recovered completeness signal enables correct downstream write control |
+| E5 | Original agentgrep MCP search before and after resumable-page merge | 20 source-and-consumer tests, plus three-record cursor traversal through three complete pages |
 
-The 37-case exploratory comparison uses 37 observations from a previously published 50-case conformance corpus. G7–G9 share a separate frozen set of 16 controlled source cases. E1–E4 use pinned third-party implementation sources. E3 uses a fixed MCP client rule and verifies its test-provider write through MCP readback. E4 runs the original Agno tool before and after an independently reported repair, then validates local HTTP upload effects under two fixed consumer rules.
+The 37-case exploratory comparison uses 37 observations from a previously published 50-case conformance corpus. G7–G9 share a separate frozen set of 16 controlled source cases. E1–E5 use pinned third-party implementation sources. E3 uses a fixed MCP client rule and verifies its test-provider write through MCP readback. E4 runs the original Agno tool before and after an independently reported repair, then validates local HTTP upload effects under two fixed consumer rules.
 
 ## Reproduce
 
@@ -41,7 +42,7 @@ The official SDK experiments install their frozen npm dependencies and run in is
 bash scripts/replay-official.sh
 ```
 
-The [GitHub Actions verification workflow](.github/workflows/verify.yml) also installs the complete pinned third-party MCP server, runs E2 over in-memory and stdio transports, and runs E3 through a separate local HTTP provider with recorded effects. The [E4 workflow](.github/workflows/e4-agno.yml) installs both historical Agno revisions, exercises original Google Drive tools, and checks the official Google client and upstream tests.
+The [GitHub Actions verification workflow](.github/workflows/verify.yml) also installs the complete pinned third-party MCP server, runs E2 over in-memory and stdio transports, and runs E3 through a separate local HTTP provider with recorded effects. The [E4 workflow](.github/workflows/e4-agno.yml) installs both historical Agno revisions, exercises original Google Drive tools, and checks the official Google client and upstream tests. The [E5 workflow](.github/workflows/e5-agentgrep.yml) runs the historical agentgrep FastMCP server on synthetic local prompt records and verifies the result-page continuation effects.
 
 ## Layout
 
@@ -51,6 +52,7 @@ The [GitHub Actions verification workflow](.github/workflows/verify.yml) also in
 - [`experiments/e1`](experiments/e1) contains the pinned public search-handler comparisons.
 - [`experiments/e2`](experiments/e2) and [`experiments/e3`](experiments/e3) contain the full-server integration tests.
 - [`experiments/e4`](experiments/e4) contains the dated Agno repair comparison, fixed protocol, source locks, dependency lock, and downstream effect replay.
+- [`experiments/e5`](experiments/e5) contains the independent agentgrep paging study, first-page source-order audit, and held-out three-page control.
 - [`evidence`](evidence) contains captured MCP outputs, independently recorded HTTP write receipts, and the pinned E4 historical repair results.
 - [`EVIDENCE_SHA256SUMS.txt`](EVIDENCE_SHA256SUMS.txt) fixes the initial publication set at the byte level.
 - [`docs/provenance.md`](docs/provenance.md) records upstream commits and original public execution runs.
