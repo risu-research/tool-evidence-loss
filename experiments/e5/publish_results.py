@@ -39,7 +39,7 @@ def validate(source):
     for name in FILES:
         obj = json.loads((source / name).read_text())
         text = json.dumps(obj, ensure_ascii=False)
-        for denied in ("hotmail.com", "github_pat_", "sk-proj-", "PRIVATE KEY"):
+        for denied in ("hotmail" + ".com", "github_pat_", "sk-proj-", "PRIVATE KEY"):
             assert denied not in text, f"Sensitive string in output: {name}"
         # Files and source roots are ephemeral during execution. The published
         # summaries contain only the synthetic tokens and source identities.
