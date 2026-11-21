@@ -21,3 +21,9 @@ The R0–R3 replay script was separately authored for the S2AI Table II comparis
 E4 checks out [Agno](https://github.com/agno-agi/agno) at two fixed commits and executes its original `GoogleDriveTools` implementation. The original source is retrieved from the upstream repository during each replay and retains its [Apache-2.0 license](https://github.com/agno-agi/agno/blob/9ff6d911131768470f91620ba40878a1f9372b61/libs/agno/LICENSE).
 
 The repository stores the separately authored replay code, original issue and repair identifiers, source-file hashes, and controlled execution results. The `google-api-python-client` dependencies are installed from their pinned package versions.
+
+## agentgrep historical result pages
+
+E5 checks out the original [agentgrep](https://github.com/tony/agentgrep) MCP implementation at its June 2026 pre-merge and merged commits. It runs the unmodified upstream search code in separate Python environments, using generated Codex session fixtures.
+
+agentgrep retains the [original MIT license](https://github.com/tony/agentgrep/blob/6b2d3465767421f113acf684473384db00ebf619/LICENSE). The published experiment contains separately authored test programs, source pins, and synthetic results. Python runtime dependencies follow each upstream revision's `uv.lock`.
