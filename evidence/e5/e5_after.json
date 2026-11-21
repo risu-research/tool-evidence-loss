@@ -1,0 +1,316 @@
+{
+  "cases": [
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ]
+      ],
+      "consumer": "visible",
+      "decision": "visible_first_page",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": "ac57f92c795eae9249af7bf761ce22439deb0b4403f5b6787bf85ea055f220f6",
+      "marker_written": true,
+      "safe_warrant": false,
+      "scenario": "HIDDEN_HOLD",
+      "source_match_count": 2,
+      "visited_count": 1
+    },
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ],
+        [
+          "serenity HOLD"
+        ]
+      ],
+      "consumer": "complete",
+      "decision": "complete_coverage",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": null,
+      "marker_written": false,
+      "safe_warrant": false,
+      "scenario": "HIDDEN_HOLD",
+      "source_match_count": 2,
+      "visited_count": 2
+    },
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ]
+      ],
+      "consumer": "visible",
+      "decision": "visible_first_page",
+      "first_cursor_present": false,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "complete",
+      "marker_sha256": "2c0442ed90293b22ca30e0d64d29dda9aca3068c734876e964ba84194c79c98f",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "SINGLE_BENIGN",
+      "source_match_count": 1,
+      "visited_count": 1
+    },
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ]
+      ],
+      "consumer": "complete",
+      "decision": "complete_coverage",
+      "first_cursor_present": false,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "complete",
+      "marker_sha256": "64d4080351a61a1b4767dd203e1fb44d2076318c0b492d6233337f69754e33f0",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "SINGLE_BENIGN",
+      "source_match_count": 1,
+      "visited_count": 1
+    },
+    {
+      "all_pages": [
+        []
+      ],
+      "consumer": "visible",
+      "decision": "visible_first_page",
+      "first_cursor_present": false,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [],
+      "first_status": "complete",
+      "marker_sha256": "09368e6a83531088e7f0c8ca0e609d045d728c31392629257df09aa53bac5665",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "ZERO",
+      "source_match_count": 0,
+      "visited_count": 0
+    },
+    {
+      "all_pages": [
+        []
+      ],
+      "consumer": "complete",
+      "decision": "complete_coverage",
+      "first_cursor_present": false,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [],
+      "first_status": "complete",
+      "marker_sha256": "08a189081afef4cd78505ee8f5d57769fab0c1120bc164ede603cffb8eb87aab",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "ZERO",
+      "source_match_count": 0,
+      "visited_count": 0
+    },
+    {
+      "all_pages": [
+        [
+          "serenity HOLD"
+        ]
+      ],
+      "consumer": "visible",
+      "decision": "visible_first_page",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity HOLD"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": null,
+      "marker_written": false,
+      "safe_warrant": false,
+      "scenario": "FIRST_HOLD",
+      "source_match_count": 2,
+      "visited_count": 1
+    },
+    {
+      "all_pages": [
+        [
+          "serenity HOLD"
+        ],
+        [
+          "serenity cleared"
+        ]
+      ],
+      "consumer": "complete",
+      "decision": "complete_coverage",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity HOLD"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": null,
+      "marker_written": false,
+      "safe_warrant": false,
+      "scenario": "FIRST_HOLD",
+      "source_match_count": 2,
+      "visited_count": 2
+    },
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ]
+      ],
+      "consumer": "visible",
+      "decision": "visible_first_page",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": "ed8ea128427f22657a2400f5ab72928aa60c4381de95626a19ce192df8c4c724",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "TWO_BENIGN",
+      "source_match_count": 2,
+      "visited_count": 1
+    },
+    {
+      "all_pages": [
+        [
+          "serenity cleared"
+        ],
+        [
+          "serenity approved"
+        ]
+      ],
+      "consumer": "complete",
+      "decision": "complete_coverage",
+      "first_cursor_present": true,
+      "first_page_keys": [
+        "diagnostics",
+        "page",
+        "request",
+        "results",
+        "schema_version",
+        "stats",
+        "status"
+      ],
+      "first_page_texts": [
+        "serenity cleared"
+      ],
+      "first_status": "bounded",
+      "marker_sha256": "304cc45c23f81317aca63a8fdcf90e15e78ff39e6d86b4fc79e9ec1ecb7c86f6",
+      "marker_written": true,
+      "safe_warrant": true,
+      "scenario": "TWO_BENIGN",
+      "source_match_count": 2,
+      "visited_count": 2
+    }
+  ],
+  "fixture_count": 5,
+  "revision": "after",
+  "scope": "original FastMCP server and search tool on synthetic Codex history",
+  "source": {
+    "source_blob": "14da30d259562549038e805de760359a9120e7b5",
+    "source_commit": "6b2d3465767421f113acf684473384db00ebf619",
+    "source_file": "src/agentgrep/mcp/tools/search_tools.py",
+    "source_repo": "https://github.com/tony/agentgrep",
+    "source_sha256": "dbd7b643c528d9695b556b1ad67027db8e5cc40f0d751d92b39c929ff6e36a79"
+  },
+  "summary": {
+    "all_marker_count": 7,
+    "conditions": 10,
+    "markers": {
+      "complete": 3,
+      "visible": 4
+    },
+    "unwarranted_marker_cases": [
+      "HIDDEN_HOLD/visible"
+    ]
+  }
+}

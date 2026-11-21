@@ -1,0 +1,54 @@
+{
+  "external_issue": "https://github.com/tony/agentgrep/issues/55",
+  "heldout_three_record_probe": {
+    "after": {
+      "pages": 3,
+      "records": [
+        "serenity newest",
+        "serenity middle",
+        "serenity oldest"
+      ]
+    },
+    "before": {
+      "pages": 1,
+      "records": [
+        "serenity newest"
+      ]
+    },
+    "complete_recovery": true
+  },
+  "merged_pull_request": "https://github.com/tony/agentgrep/pull/64",
+  "pass": true,
+  "project": "tony/agentgrep",
+  "result": "The pre-merge flat response hides an older matching HOLD record at limit=1. The merged status and cursor allow full traversal and withholding of the test release marker.",
+  "revisions": {
+    "after": "6b2d3465767421f113acf684473384db00ebf619",
+    "before": "9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83"
+  },
+  "scope": "original FastMCP search tool with synthetic source data and study-owned marker writes",
+  "source_results": {
+    "after": {
+      "all_marker_count": 7,
+      "conditions": 10,
+      "markers": {
+        "complete": 3,
+        "visible": 4
+      },
+      "unwarranted_marker_cases": [
+        "HIDDEN_HOLD/visible"
+      ]
+    },
+    "before": {
+      "all_marker_count": 4,
+      "conditions": 10,
+      "markers": {
+        "complete": 0,
+        "visible": 4
+      },
+      "unwarranted_marker_cases": [
+        "FIRST_HOLD/visible"
+      ]
+    }
+  },
+  "source_type": "local Codex JSONL prompt history"
+}

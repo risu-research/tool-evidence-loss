@@ -1,0 +1,40 @@
+{
+  "complete_source_recovered": false,
+  "duplicates": [],
+  "known_source_order_newest_first": [
+    "serenity newest",
+    "serenity middle",
+    "serenity oldest"
+  ],
+  "missing": [
+    "serenity middle",
+    "serenity oldest"
+  ],
+  "ordering_consistent": false,
+  "page_count": 1,
+  "pages": [
+    {
+      "cursor_present": false,
+      "index": 0,
+      "reason": null,
+      "stats": {},
+      "status": null,
+      "texts": [
+        "serenity newest"
+      ]
+    }
+  ],
+  "reported_texts": [
+    "serenity newest"
+  ],
+  "revision": "before",
+  "scope": "original FastMCP tool; synthetic local three-record Codex sessions",
+  "source": {
+    "source_blob": "61d8f7837bef4ab35b91044b46e78e3f8e3fa197",
+    "source_commit": "9b5ccda643f2bf84c49b0ec1c4ae300b681a5f83",
+    "source_file": "src/agentgrep/mcp/tools/search_tools.py",
+    "source_repo": "https://github.com/tony/agentgrep",
+    "source_sha256": "f14fbb2018fbf5e5f444d11cdf20310ad5badaef7dcaf09b2758112794f890a9"
+  },
+  "unique_record_count": 1
+}
