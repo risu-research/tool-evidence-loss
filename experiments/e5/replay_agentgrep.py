@@ -25,22 +25,22 @@ SOURCE_COMMITS = {
 }
 TESTS = {
     "HIDDEN_HOLD": [
-        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
-        ("a-old", "2026-01-01T00:00:00Z", "serenity HOLD"),
+        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("old", "2026-01-01T00:00:00Z", "serenity HOLD"),
     ],
     "SINGLE_BENIGN": [
-        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
     ],
     "ZERO": [
-        ("z-new", "2026-01-02T00:00:00Z", "different topic"),
+        ("new", "2026-01-02T00:00:00Z", "different topic"),
     ],
     "FIRST_HOLD": [
-        ("z-new", "2026-01-02T00:00:00Z", "serenity HOLD"),
-        ("a-old", "2026-01-01T00:00:00Z", "serenity cleared"),
+        ("new", "2026-01-02T00:00:00Z", "serenity HOLD"),
+        ("old", "2026-01-01T00:00:00Z", "serenity cleared"),
     ],
     "TWO_BENIGN": [
-        ("z-new", "2026-01-02T00:00:00Z", "serenity cleared"),
-        ("a-old", "2026-01-01T00:00:00Z", "serenity approved"),
+        ("new", "2026-01-02T00:00:00Z", "serenity cleared"),
+        ("old", "2026-01-01T00:00:00Z", "serenity approved"),
     ],
 }
 EXPECTED = {
@@ -240,7 +240,8 @@ async def run_all(version: str, identity: dict[str, Any]) -> dict[str, Any]:
         if x["marker_written"] and not x["safe_warrant"]
     ]
     print("E5_FIRST_PAGE_AUDIT " + json.dumps({"revision": version, "first_page": {x["scenario"]: x["first_page_texts"] for x in entries if x["consumer"] == "visible"}, "unwarranted": unwarranted}, sort_keys=True), flush=True)
-    require(len(unwarranted) == 1 and unwarranted[0].endswith("/visible"), f"Unexpected unsafe marker count: {unwarranted}")
+    actual_expected = {"before": ["FIRST_HOLD/visible"], "after": ["HIDDEN_HOLD/visible"]}[version]
+    require(unwarranted == actual_expected, f"Original implementation witness changed: {unwarranted}")
     return {
         "source": identity,
         "revision": version,
