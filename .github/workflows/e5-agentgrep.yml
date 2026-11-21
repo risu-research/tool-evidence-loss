@@ -78,6 +78,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 experiments/e5/verify_pair.py results/e5_before.json results/e5_after.json \
+            --probe-before results/e5_probe_before.json \
+            --probe-after results/e5_probe_after.json \
             --output results/e5_pair.json | tee results/e5_pair.log
       - name: Capture exact dependency manifests
         shell: bash
