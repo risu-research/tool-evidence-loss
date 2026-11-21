@@ -67,6 +67,24 @@ jobs:
           python experiments/e4/verify_pair.py \
             results/e4_before.json results/e4_after.json \
             --output results/e4_verification.json
+      - name: Verify actual Google API Discovery request and response handling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python experiments/e4/replay_discovery_http.py \
+            --source agno-before --version before --output results/e4_discovery_before.json
+          python experiments/e4/replay_discovery_http.py \
+            --source agno-after --version after --output results/e4_discovery_after.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          b=json.loads(Path('results/e4_discovery_before.json').read_text())
+          a=json.loads(Path('results/e4_discovery_after.json').read_text())
+          assert b['pass'] and a['pass']
+          assert b['states'][0]['tool_result']==b['states'][1]['tool_result']
+          assert a['states'][0]['tool_result']!=a['states'][1]['tool_result']
+          print('Real Google Discovery API HTTP masks: before collision, after preserved')
+          PY
       - name: Run historical upstream Google Drive unit tests
         shell: bash
         run: |
@@ -90,3 +108,5 @@ jobs:
             results/e4_after.log
             results/e4_upstream_test.log
             results/e4_python_packages.txt
+            results/e4_discovery_before.json
+            results/e4_discovery_after.json
