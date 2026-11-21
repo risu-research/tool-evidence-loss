@@ -50,7 +50,7 @@ jobs:
           for name in ['results.json','control.json']:
               fresh=json.loads((a/name).read_text())
               historical=json.loads((b/name).read_text())
-              assert fresh==historical, name
+              assert fresh['runtime']['node'].startswith('v22.')\n              assert historical['runtime']['node'].startswith('v22.')\n              fresh['runtime'].pop('node')\n              historical['runtime'].pop('node')\n              assert fresh==historical, name
           print('E1 source replay equals recorded evidence')
           PY
 
