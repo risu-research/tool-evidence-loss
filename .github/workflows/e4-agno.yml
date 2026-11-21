@@ -89,6 +89,13 @@ jobs:
         shell: bash
         run: |
           python experiments/e4/publish_results.py --source results --dest evidence/e4 --check
+      - name: Run original before-repair Agno unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH="$PWD/agno-before/libs/agno" python -m pytest \
+            agno-before/libs/agno/tests/unit/tools/test_google_drive.py -q \
+            | tee results/e4_upstream_before_test.log
       - name: Run historical upstream Google Drive unit tests
         shell: bash
         run: |
@@ -111,6 +118,7 @@ jobs:
             results/e4_before.log
             results/e4_after.log
             results/e4_upstream_test.log
+            results/e4_upstream_before_test.log
             results/e4_python_packages.txt
             results/e4_discovery_before.json
             results/e4_discovery_after.json
