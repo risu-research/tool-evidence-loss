@@ -122,3 +122,49 @@ jobs:
             results/e4_python_packages.txt
             results/e4_discovery_before.json
             results/e4_discovery_after.json
+
+  seal-public-manifest:
+    if: github.ref == 'refs/heads/e4-historical-agno-20261121'
+    needs: agno-original-before-after
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recompute complete tracked-file SHA-256 manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import os
+          import subprocess
+          from pathlib import Path
+          manifest = Path('EVIDENCE_SHA256SUMS.txt')
+          tracked = subprocess.check_output(['git','ls-files','-z']).split(b'\0')
+          rows = []
+          for raw in tracked:
+              if not raw:
+                  continue
+              relative = os.fsdecode(raw)
+              if relative == str(manifest):
+                  continue
+              p = Path(relative)
+              assert p.is_file(), relative
+              rows.append(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {relative}')
+          manifest.write_text('\n'.join(sorted(rows))+'\n', encoding='utf-8')
+          print('E4 full-repository evidence SHA-256 coverage:', len(rows))
+          PY
+      - name: Verify every tracked artifact and disclosure policy
+        run: |
+          python3 scripts/verify_public.py
+      - name: Commit audited manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add EVIDENCE_SHA256SUMS.txt
+          git diff --cached --check
+          git commit -m "Seal complete public E4 source and evidence manifest"
+          git push origin HEAD:refs/heads/e4-historical-agno-20261121
