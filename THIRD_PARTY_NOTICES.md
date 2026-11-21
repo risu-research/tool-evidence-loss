@@ -15,3 +15,9 @@ The 37-case exploratory comparison uses the original public [ClosureProbe corpus
 The complete frozen 50-case JSON, its schema, and the original Apache-2.0 notice are preserved under [`experiments/discovery37/source/`](experiments/discovery37/source/). The archived source and its original license retain their original copyright and attribution.
 
 The R0–R3 replay script was separately authored for the S2AI Table II comparison, using the pinned source observations and their published source-qualified labels.
+
+## Agno historical repair
+
+E4 checks out [Agno](https://github.com/agno-agi/agno) at two fixed commits and executes its original `GoogleDriveTools` implementation. The original source is retrieved from the upstream repository during each replay and retains its [Apache-2.0 license](https://github.com/agno-agi/agno/blob/9ff6d911131768470f91620ba40878a1f9372b61/libs/agno/LICENSE).
+
+The repository stores the separately authored replay code, original issue and repair identifiers, source-file hashes, and controlled execution results. The `google-api-python-client` dependencies are installed from their pinned package versions.
