@@ -93,3 +93,54 @@ jobs:
           path: results/
           if-no-files-found: warn
           retention-days: 60
+
+  archive-e5:
+    if: github.ref == 'refs/heads/e5-agentgrep-cross-source-20261121'
+    needs: original-before-after
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: e5-independent-source-paging-verified
+          path: results
+      - name: Check and archive synthetic-only source evidence
+        run: |
+          python3 experiments/e5/publish_results.py --source results --dest evidence/e5
+      - name: Regenerate complete tracked-file SHA-256 inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add evidence/e5/
+          python3 - <<'PY'
+          import hashlib
+          import os
+          import subprocess
+          from pathlib import Path
+          manifest=Path("EVIDENCE_SHA256SUMS.txt")
+          rows=[]
+          for raw in subprocess.check_output(["git","ls-files","-z"]).split(b"\0"):
+              if not raw: continue
+              name=os.fsdecode(raw)
+              if name == manifest.as_posix(): continue
+              p=Path(name)
+              assert p.is_file(), name
+              rows.append(f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {name}")
+          manifest.write_text("\n".join(sorted(rows))+"\n",encoding="utf-8")
+          print("Manifest covers",len(rows),"tracked files")
+          PY
+      - name: Audit complete frozen public repository
+        run: |
+          python3 scripts/verify_public.py
+      - name: Commit approved experiment evidence and hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/e5 EVIDENCE_SHA256SUMS.txt
+          git diff --cached --check
+          git commit -m "Archive E5 original agentgrep replay and complete public integrity manifest"
+          git push origin HEAD:refs/heads/e5-agentgrep-cross-source-20261121
