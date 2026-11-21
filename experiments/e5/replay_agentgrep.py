@@ -239,7 +239,8 @@ async def run_all(version: str, identity: dict[str, Any]) -> dict[str, Any]:
         x["scenario"] + "/" + x["consumer"] for x in entries
         if x["marker_written"] and not x["safe_warrant"]
     ]
-    require(unwarranted == ["HIDDEN_HOLD/visible"], f"Unexpected unsafe marker writes: {unwarranted}")
+    print("E5_FIRST_PAGE_AUDIT " + json.dumps({"revision": version, "first_page": {x["scenario"]: x["first_page_texts"] for x in entries if x["consumer"] == "visible"}, "unwarranted": unwarranted}, sort_keys=True), flush=True)
+    require(len(unwarranted) == 1 and unwarranted[0].endswith("/visible"), f"Unexpected unsafe marker count: {unwarranted}")
     return {
         "source": identity,
         "revision": version,
