@@ -239,7 +239,7 @@ async def run_all(version: str, identity: dict[str, Any]) -> dict[str, Any]:
         x["scenario"] + "/" + x["consumer"] for x in entries
         if x["marker_written"] and not x["safe_warrant"]
     ]
-    require(unwarranted == ["HIDDEN_HOLD/visible"], "Unexpected unsafe marker writes")
+    require(unwarranted == ["HIDDEN_HOLD/visible"], f"Unexpected unsafe marker writes: {unwarranted}")
     return {
         "source": identity,
         "revision": version,
