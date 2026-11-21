@@ -43,7 +43,11 @@ jobs:
           python -m pip install --no-cache-dir --disable-pip-version-check \
             -e ./agno-after/libs/agno \
             google-api-python-client google-auth-oauthlib google-auth-httplib2 \
-            pytest
+            pytest pytest-asyncio
+      - name: Record installed dependency versions
+        run: |
+          mkdir -p results
+          python -m pip freeze > results/e4_python_packages.txt
       - name: Reproduce original Agno before-repair tool and uploads
         shell: bash
         run: |
@@ -85,3 +89,4 @@ jobs:
             results/e4_before.log
             results/e4_after.log
             results/e4_upstream_test.log
+            results/e4_python_packages.txt
