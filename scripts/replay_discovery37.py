@@ -53,7 +53,7 @@ def inspect_bytes():
     check(hashlib.sha256(schema.read_bytes()).hexdigest() ==
           "b872ffc88a3f0e32b1af8eb2370279aeadfef305488bfc577b8cda3746a91934", "Source schema changed")
     check(hashlib.sha256(license_path.read_bytes()).hexdigest() ==
-          "7d8fb569801df15ded2684780ee4f3c7135dd72d3d504b9b4957b2ec95a19b0b0864dc4", "Source license changed")
+          "7d8fb569801df15ded2684780ee4f3c7135dd72d3d504b9b4957b2ec95a13ead", "Source license changed")
     return json.loads(data)
 
 def latest_page(response, field="response"):
