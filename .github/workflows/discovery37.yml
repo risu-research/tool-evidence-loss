@@ -1,0 +1,76 @@
+name: Discovery 37 independent replay and source verification
+
+on:
+  push:
+    branches: [main, discovery37-repro-20261121]
+    paths:
+      - 'experiments/discovery37/**'
+      - 'scripts/replay_discovery37.py'
+      - '.github/workflows/discovery37.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independent-table-replay:
+    name: Rebuild 37 rows and Table II
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen source, all rows, and all five decision columns
+        run: |
+          set -euo pipefail
+          python3 scripts/replay_discovery37.py --verify experiments/discovery37/results
+      - name: Independently regenerate and byte-compare result files
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/discovery37-check"
+          python3 scripts/replay_discovery37.py --write "$RUNNER_TEMP/discovery37-check"
+          cmp experiments/discovery37/results/rows.csv "$RUNNER_TEMP/discovery37-check/rows.csv"
+          cmp experiments/discovery37/results/table_ii.json "$RUNNER_TEMP/discovery37-check/table_ii.json"
+      - name: Run repository disclosure and frozen-evidence audit
+        run: python3 scripts/verify_public.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: discovery37-fresh-independent-results
+          path: |
+            experiments/discovery37/results/rows.csv
+            experiments/discovery37/results/table_ii.json
+          retention-days: 30
+
+  historical-source-oracle:
+    name: Original pinned ClosureProbe 50-case verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Checkout historical conformance source and match frozen inputs
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/risu-research/closureprobe.git closureprobe-original
+          git -C closureprobe-original checkout --quiet 12fae2c0cb0909a43f487323fb00e7372b1f3377
+          test "$(git -C closureprobe-original rev-parse HEAD)" = "12fae2c0cb0909a43f487323fb00e7372b1f3377"
+          cmp closureprobe-original/corpus/v0.3/cases.json experiments/discovery37/source/cases.json
+          cmp closureprobe-original/schemas/corpus.schema.json experiments/discovery37/source/corpus.schema.json
+          cmp closureprobe-original/LICENSE experiments/discovery37/source/UPSTREAM_LICENSE.txt
+          test -z "$(git -C closureprobe-original status --porcelain)"
+      - name: Build original producer profiles from pinned dependencies
+        working-directory: closureprobe-original
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run build
+      - name: Verify original source-qualified 50-case corpus
+        working-directory: closureprobe-original
+        run: |
+          set -euo pipefail
+          node dist/src/cli.js corpus verify corpus/v0.3/cases.json | tee ../discovery37-original-oracle.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: discovery37-upstream-conformance-output
+          path: discovery37-original-oracle.log
+          retention-days: 30
