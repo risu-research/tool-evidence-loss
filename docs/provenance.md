@@ -2,6 +2,7 @@
 
 | ID | Source pin | Original execution |
 | --- | --- | --- |
+| Discovery 37 | [`closureprobe` rc3 commit `12fae2c`](https://github.com/risu-research/closureprobe/commit/12fae2c0cb0909a43f487323fb00e7372b1f3377), `corpus/v0.3/cases.json` | 2026-08-15 original 50-case release, 37 source observations; [row replay](../experiments/discovery37/README.md) |
 | G7 | [`formal-exec-2609` commit `8ad25af`](https://github.com/risu-research/formal-exec-2609/commit/8ad25af26a2f6d78f98a5c5c0b280220377254e8), `runs/s2ai-official-runtime/` | [Actions run 36913980536](https://github.com/risu-research/formal-exec-2609/actions/runs/36913980536) |
 | G8 | [`stc-exec-2609` commit `dadb941`](https://github.com/risu-research/stc-exec-2609/commit/dadb9417bec502ba620b8b081343325f99b48cbb), `transport-confirm/` | [Actions run 36917142435](https://github.com/risu-research/stc-exec-2609/actions/runs/36917142435) |
 | G9 | Original frozen G8 fixtures plus local one-shot scripts, 2026-10-14 | `experiments/g9/preexecution-manifest.sha256` and original result JSON |
@@ -11,6 +12,17 @@
 | E3 | `piotr-agier/google-drive-mcp` @ `9509fb8`, original full server | [Actions run 44943185337](https://github.com/risu-research/stc-exec-2609/actions/runs/44943185337), 6 passing tests |
 
 E2 tests originate from [commit `75f3038`](https://github.com/risu-research/stc-exec-2609/commit/75f3038e59383807f0b43ad22466e66000ad4d56). E3 tests originate from [commit `529a220`](https://github.com/risu-research/stc-exec-2609/commit/529a2209b274d637fea273020c15cc7dd4a52633). The external MCP server source remains at its upstream pin; the separate experiment modules are copied into the test directory during compilation.
+
+## Discovery 37 historical input identity
+
+- Original corpus SHA-256: `f1d0fd842738a74eb30978164cd68500fa11a30af2d7899a50ef0dd23f19e70a`
+- Original corpus Git blob: `f262f6150d8fc97249e88f01d6db1f914d7d1b82`
+- Original schema SHA-256: `b872ffc88a3f0e32b1af8eb2370279aeadfef305488bfc577b8cda3746a91934`
+- Original license SHA-256: `7d8fb569801df15ded2684780ee4f3c7135dd72d3d504b9b4957b2ec95a13ead`
+- Full original corpus: 50 cases, including 37 source observations and 13 trace records
+- Original licensed source observations: 9
+- Original producer-profile verification: `node dist/src/cli.js corpus verify corpus/v0.3/cases.json` at the pinned historical commit
+- Independent Table II row and aggregate replay: `scripts/replay_discovery37.py`
 
 ## Artifact hashes
 
