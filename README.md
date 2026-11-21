@@ -8,6 +8,7 @@ A search can return zero files after covering only part of its requested scope. 
 
 | Experiment | Execution path | Verified result |
 | --- | --- | --- |
+| Discovery 37 | Pinned ClosureProbe v0.3 source corpus, independently recalculated | 37 original observations; Table II reproduced across R0–R3 and source-qualified labels |
 | G7 | Official Agents SDK and MCP stdio | 16 controlled source states; 8 permitted actions and 8 blocked |
 | G8 | Official Agents SDK and MCP Streamable HTTP | Same 16 source states across HTTP |
 | G9 | Source-derived projection and full visible transcript replay | 8 indistinguishable pairs; 5 request-binding challenges |
@@ -15,14 +16,15 @@ A search can return zero files after covering only part of its requested scope. 
 | E2 | Full upstream MCP server with in-memory and stdio clients | Identical MCP responses for complete and incomplete empty searches |
 | E3 | Full upstream MCP server, stdio client, local HTTP provider | 3 confirmed writes across 5 conditions, including 1 write under incomplete search coverage |
 
-G7–G9 share a frozen set of 16 controlled source cases. E1–E3 use pinned third-party implementation sources. The E3 client follows a fixed decision rule; the write reaches a local HTTP test provider and is independently read back through MCP.
+The 37-case exploratory comparison uses 37 observations from a previously published 50-case conformance corpus. G7–G9 share a separate frozen set of 16 controlled source cases. E1–E3 use pinned third-party implementation sources. The E3 client follows a fixed decision rule; the write reaches a local HTTP test provider and is independently read back through MCP.
 
 ## Reproduce
 
-Requires Python 3 and Node.js 22. The initial integrity and G9 replay use Node built-ins.
+Requires Python 3 and Node.js 22. The initial integrity, 37-row replay, and G9 replay use locally installed standard tooling.
 
 ```bash
 bash scripts/verify-local.sh
+python3 scripts/replay_discovery37.py --verify experiments/discovery37/results
 ```
 
 E1 executes the original search-handler excerpts with the TypeScript compiler:
@@ -42,6 +44,7 @@ The [GitHub Actions verification workflow](.github/workflows/verify.yml) also in
 
 ## Layout
 
+- [`experiments/discovery37`](experiments/discovery37) contains the original public 50-case corpus, the 37 selected source observations, an independent replay, and row-level Table II results.
 - [`experiments/g7`](experiments/g7) and [`experiments/g8`](experiments/g8) contain frozen source, fixtures, dependency locks, and original execution records.
 - [`experiments/g9`](experiments/g9) contains source-derived projection, exact request-binding tests, and frozen one-shot results.
 - [`experiments/e1`](experiments/e1) contains the pinned public search-handler comparisons.
