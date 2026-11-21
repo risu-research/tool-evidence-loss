@@ -3,6 +3,7 @@ name: E5 independent agentgrep MCP paging replay
 on:
   push:
     branches:
+      - main
       - e5-agentgrep-cross-source-20261121
     paths:
       - 'experiments/e5/**'
