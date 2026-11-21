@@ -1,0 +1,119 @@
+{
+  "scope": "original third-party registration callback via VM with mocked dependencies; JSON serializer stub",
+  "upstream": {
+    "repo": "domdomegg/google-drive-mcp",
+    "commit": "395971084f5d8504e5b2934dab4c2cc6e2f210b5",
+    "path": "src/tools/files-list.ts",
+    "git_blob_sha": "8e5bba41101d24b49e299d9ef3c8bde46a047719",
+    "copied_source_sha256": "1bc8385e170daa4d88b140916170ac6d129415e58bdaa2c45faf1ddf9c424d02"
+  },
+  "runtime": {
+    "node": "v22.16.0",
+    "typescript": "5.8.3"
+  },
+  "checks": {
+    "default_fields_include_incompleteSearch": true,
+    "full_and_incomplete_visible_different": true,
+    "incomplete_flag_retained": true,
+    "pagination_token_retained": true,
+    "positive_hit_retained": true
+  },
+  "passes": 5,
+  "total_checks": 5,
+  "cases": [
+    {
+      "id": "C1_complete_zero",
+      "raw": {
+        "files": [],
+        "incompleteSearch": false
+      },
+      "request_query": {
+        "q": "name contains 'blocker'",
+        "pageSize": "100",
+        "spaces": "drive",
+        "includeItemsFromAllDrives": "true",
+        "supportsAllDrives": "true",
+        "fields": "nextPageToken,incompleteSearch,files(id,name,mimeType,parents,webViewLink,webContentLink,createdTime,modifiedTime,size,owners,shared,trashed)"
+      },
+      "structuredContent": {
+        "files": [],
+        "incompleteSearch": false
+      },
+      "output": "{\"files\":[],\"incompleteSearch\":false}"
+    },
+    {
+      "id": "C2_incomplete_zero",
+      "raw": {
+        "files": [],
+        "incompleteSearch": true
+      },
+      "request_query": {
+        "q": "name contains 'blocker'",
+        "pageSize": "100",
+        "spaces": "drive",
+        "includeItemsFromAllDrives": "true",
+        "supportsAllDrives": "true",
+        "fields": "nextPageToken,incompleteSearch,files(id,name,mimeType,parents,webViewLink,webContentLink,createdTime,modifiedTime,size,owners,shared,trashed)"
+      },
+      "structuredContent": {
+        "files": [],
+        "incompleteSearch": true
+      },
+      "output": "{\"files\":[],\"incompleteSearch\":true}"
+    },
+    {
+      "id": "C3_pagination",
+      "raw": {
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": "another-page"
+      },
+      "request_query": {
+        "q": "name contains 'blocker'",
+        "pageSize": "100",
+        "spaces": "drive",
+        "includeItemsFromAllDrives": "true",
+        "supportsAllDrives": "true",
+        "fields": "nextPageToken,incompleteSearch,files(id,name,mimeType,parents,webViewLink,webContentLink,createdTime,modifiedTime,size,owners,shared,trashed)"
+      },
+      "structuredContent": {
+        "files": [],
+        "nextPageToken": "another-page",
+        "incompleteSearch": false
+      },
+      "output": "{\"files\":[],\"nextPageToken\":\"another-page\",\"incompleteSearch\":false}"
+    },
+    {
+      "id": "C4_positive_hit",
+      "raw": {
+        "files": [
+          {
+            "id": "1",
+            "name": "safety-review.txt",
+            "mimeType": "text/plain"
+          }
+        ],
+        "incompleteSearch": false
+      },
+      "request_query": {
+        "q": "name contains 'blocker'",
+        "pageSize": "100",
+        "spaces": "drive",
+        "includeItemsFromAllDrives": "true",
+        "supportsAllDrives": "true",
+        "fields": "nextPageToken,incompleteSearch,files(id,name,mimeType,parents,webViewLink,webContentLink,createdTime,modifiedTime,size,owners,shared,trashed)"
+      },
+      "structuredContent": {
+        "files": [
+          {
+            "id": "1",
+            "name": "safety-review.txt",
+            "mimeType": "text/plain"
+          }
+        ],
+        "incompleteSearch": false
+      },
+      "output": "{\"files\":[{\"id\":\"1\",\"name\":\"safety-review.txt\",\"mimeType\":\"text/plain\"}],\"incompleteSearch\":false}"
+    }
+  ]
+}

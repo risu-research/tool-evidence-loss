@@ -1,0 +1,93 @@
+{
+  "name": "s2ai-official-runtime-confirmatory",
+  "dependencies": {
+    "@modelcontextprotocol/client": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/@modelcontextprotocol/client/-/client-2.2.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@modelcontextprotocol/core": {
+          "version": "2.2.0",
+          "resolved": "https://registry.npmjs.org/@modelcontextprotocol/core/-/core-2.2.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "zod": {
+              "version": "4.2.0"
+            }
+          }
+        },
+        "zod": {
+          "version": "4.2.0"
+        }
+      }
+    },
+    "@modelcontextprotocol/server": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/@modelcontextprotocol/server/-/server-2.2.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "zod": {
+          "version": "4.2.0"
+        }
+      }
+    },
+    "@openai/agents": {
+      "version": "0.18.0",
+      "resolved": "https://registry.npmjs.org/@openai/agents/-/agents-0.18.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@openai/agents-core": {
+          "version": "0.18.0",
+          "resolved": "https://registry.npmjs.org/@openai/agents-core/-/agents-core-0.18.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "@modelcontextprotocol/client": {
+              "version": "2.2.0"
+            },
+            "zod": {
+              "version": "4.2.0"
+            }
+          }
+        },
+        "@openai/agents-openai": {
+          "version": "0.18.0",
+          "resolved": "https://registry.npmjs.org/@openai/agents-openai/-/agents-openai-0.18.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "zod": {
+              "version": "4.2.0"
+            }
+          }
+        },
+        "@openai/agents-realtime": {
+          "version": "0.18.0",
+          "resolved": "https://registry.npmjs.org/@openai/agents-realtime/-/agents-realtime-0.18.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "zod": {
+              "version": "4.2.0"
+            }
+          }
+        },
+        "openai": {
+          "version": "7.25.0",
+          "resolved": "https://registry.npmjs.org/openai/-/openai-7.25.0.tgz",
+          "overridden": false,
+          "dependencies": {
+            "zod": {
+              "version": "4.2.0"
+            }
+          }
+        },
+        "zod": {
+          "version": "4.2.0"
+        }
+      }
+    },
+    "zod": {
+      "version": "4.2.0",
+      "resolved": "https://registry.npmjs.org/zod/-/zod-4.2.0.tgz",
+      "overridden": false
+    }
+  }
+}

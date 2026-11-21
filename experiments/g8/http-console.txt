@@ -1,0 +1,15 @@
+{
+  "transport": "official Streamable HTTP over loopback TCP",
+  "cases": 16,
+  "distinctModelVisibleToolOutputHashes": [
+    "870939faf69d719bb49732ef03c46638aab9df8e77996899bf91fa272eae94ee"
+  ],
+  "modelVisibleSourceEvidenceLeakageCases": 0,
+  "sourceQualifiedActCount": 8,
+  "sourceQualifiedBlockCount": 8,
+  "projectionActCount": 16,
+  "projectionInvalidCommits": 8,
+  "sourceInvalidCommits": 0,
+  "allExpectedMatched": true,
+  "pass": true
+}

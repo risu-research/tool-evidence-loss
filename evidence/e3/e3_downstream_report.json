@@ -1,0 +1,481 @@
+{
+  "source_commit": "9509fb8bba8ad15f7cdb79a54dbd850c13eb058b",
+  "experiment": "same unmodified original MCP server with actual stdio + local stateful HTTP API",
+  "scope": "simulated provider state; no Google account, LLM, live deployment or production operation",
+  "run_cases": [
+    {
+      "name": "P_COMPLETE",
+      "mode": "projection",
+      "incomplete": false,
+      "initial_hits": 0,
+      "projectionDecision": true,
+      "sourceQualifiedDecision": true,
+      "executed": true,
+      "search_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "search_hash": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "write_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Created folder: release-cleared\nID: local-effect-1"
+          }
+        ],
+        "isError": false
+      },
+      "readback": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Contents of folder:\n\n📁 release-cleared (ID: local-effect-1)"
+          }
+        ],
+        "isError": false
+      },
+      "folders": [
+        {
+          "id": "local-effect-1",
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        }
+      ],
+      "api_requests": [
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "fullText contains 'deployment blocker' and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+            "orderBy": "modifiedTime desc",
+            "corpora": "allDrives",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "name = 'release-cleared' and 'root' in parents and trashed = false",
+            "fields": "files(id, name, mimeType)",
+            "pageSize": 1,
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.create",
+          "params": {
+            "requestBody": {
+              "name": "release-cleared",
+              "mimeType": "application/vnd.google-apps.folder",
+              "parents": [
+                "root"
+              ]
+            },
+            "fields": "id, name, webViewLink",
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "'root' in parents and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+            "orderBy": "name",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "P_INCOMPLETE",
+      "mode": "projection",
+      "incomplete": true,
+      "initial_hits": 0,
+      "projectionDecision": true,
+      "sourceQualifiedDecision": false,
+      "executed": true,
+      "search_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "search_hash": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "write_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Created folder: release-cleared\nID: local-effect-2"
+          }
+        ],
+        "isError": false
+      },
+      "readback": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Contents of folder:\n\n📁 release-cleared (ID: local-effect-2)"
+          }
+        ],
+        "isError": false
+      },
+      "folders": [
+        {
+          "id": "local-effect-2",
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        }
+      ],
+      "api_requests": [
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "fullText contains 'deployment blocker' and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+            "orderBy": "modifiedTime desc",
+            "corpora": "allDrives",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "name = 'release-cleared' and 'root' in parents and trashed = false",
+            "fields": "files(id, name, mimeType)",
+            "pageSize": 1,
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.create",
+          "params": {
+            "requestBody": {
+              "name": "release-cleared",
+              "mimeType": "application/vnd.google-apps.folder",
+              "parents": [
+                "root"
+              ]
+            },
+            "fields": "id, name, webViewLink",
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "'root' in parents and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+            "orderBy": "name",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Q_INCOMPLETE",
+      "mode": "source_control",
+      "incomplete": true,
+      "initial_hits": 0,
+      "projectionDecision": true,
+      "sourceQualifiedDecision": false,
+      "executed": false,
+      "search_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "search_hash": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "write_result": null,
+      "readback": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Contents of folder:\n\n"
+          }
+        ],
+        "isError": false
+      },
+      "folders": [],
+      "api_requests": [
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "fullText contains 'deployment blocker' and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+            "orderBy": "modifiedTime desc",
+            "corpora": "allDrives",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "'root' in parents and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+            "orderBy": "name",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Q_COMPLETE",
+      "mode": "source_control",
+      "incomplete": false,
+      "initial_hits": 0,
+      "projectionDecision": true,
+      "sourceQualifiedDecision": true,
+      "executed": true,
+      "search_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "search_hash": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "write_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Created folder: release-cleared\nID: local-effect-3"
+          }
+        ],
+        "isError": false
+      },
+      "readback": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Contents of folder:\n\n📁 release-cleared (ID: local-effect-3)"
+          }
+        ],
+        "isError": false
+      },
+      "folders": [
+        {
+          "id": "local-effect-3",
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        }
+      ],
+      "api_requests": [
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "fullText contains 'deployment blocker' and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+            "orderBy": "modifiedTime desc",
+            "corpora": "allDrives",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "name = 'release-cleared' and 'root' in parents and trashed = false",
+            "fields": "files(id, name, mimeType)",
+            "pageSize": 1,
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.create",
+          "params": {
+            "requestBody": {
+              "name": "release-cleared",
+              "mimeType": "application/vnd.google-apps.folder",
+              "parents": [
+                "root"
+              ]
+            },
+            "fields": "id, name, webViewLink",
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "'root' in parents and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+            "orderBy": "name",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "P_POSITIVE",
+      "mode": "projection",
+      "incomplete": false,
+      "initial_hits": 1,
+      "projectionDecision": false,
+      "sourceQualifiedDecision": false,
+      "executed": false,
+      "search_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 1 files (ordered by modifiedTime desc):\nblocking-incident.txt (text/plain) [id: blocking-incident, path: /] [created: N/A, modified: N/A]"
+          }
+        ],
+        "isError": false
+      },
+      "search_hash": "d5594170fa32dcd4e15a3f17877c23ab872ebfc04dd1fe6ef415136ccbd0ebb8",
+      "write_result": null,
+      "readback": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Contents of folder:\n\n"
+          }
+        ],
+        "isError": false
+      },
+      "folders": [],
+      "api_requests": [
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "fullText contains 'deployment blocker' and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+            "orderBy": "modifiedTime desc",
+            "corpora": "allDrives",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        },
+        {
+          "operation": "files.list",
+          "params": {
+            "q": "'root' in parents and trashed = false",
+            "pageSize": 50,
+            "fields": "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+            "orderBy": "name",
+            "includeItemsFromAllDrives": true,
+            "supportsAllDrives": true
+          }
+        }
+      ]
+    }
+  ],
+  "provider_writes": [
+    {
+      "scenario": "P_COMPLETE",
+      "operation": "files.create",
+      "folder": {
+        "id": "local-effect-1",
+        "name": "release-cleared",
+        "mimeType": "application/vnd.google-apps.folder",
+        "parents": [
+          "root"
+        ]
+      },
+      "call_params": {
+        "requestBody": {
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        },
+        "fields": "id, name, webViewLink",
+        "supportsAllDrives": true
+      }
+    },
+    {
+      "scenario": "P_INCOMPLETE",
+      "operation": "files.create",
+      "folder": {
+        "id": "local-effect-2",
+        "name": "release-cleared",
+        "mimeType": "application/vnd.google-apps.folder",
+        "parents": [
+          "root"
+        ]
+      },
+      "call_params": {
+        "requestBody": {
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        },
+        "fields": "id, name, webViewLink",
+        "supportsAllDrives": true
+      }
+    },
+    {
+      "scenario": "Q_COMPLETE",
+      "operation": "files.create",
+      "folder": {
+        "id": "local-effect-3",
+        "name": "release-cleared",
+        "mimeType": "application/vnd.google-apps.folder",
+        "parents": [
+          "root"
+        ]
+      },
+      "call_params": {
+        "requestBody": {
+          "name": "release-cleared",
+          "mimeType": "application/vnd.google-apps.folder",
+          "parents": [
+            "root"
+          ]
+        },
+        "fields": "id, name, webViewLink",
+        "supportsAllDrives": true
+      }
+    }
+  ],
+  "summary": {
+    "count": 5,
+    "writes": 3,
+    "unlicensed_writes": 1
+  }
+}

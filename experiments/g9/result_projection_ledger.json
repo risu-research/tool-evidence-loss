@@ -1,0 +1,82 @@
+[
+  {
+    "caseId": "0c545807416c895e",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "28fc76c12c0a26a2",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "3e6e8271fccb0dff",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "4e1cc4e490ba761f",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "586c14c53ade7789",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "65e2128271ac3f04",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "6625ead6d57db94e",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "7f7c9c851b83b519",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "9f07497433d8f8f8",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "a2757f7e76020150",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "ab1a435c69b13c7a",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "acfb7ef59615c9f8",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "b1d80fb7aebdbd20",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "e7d259693a032486",
+    "effect": "COMMIT",
+    "licensed": true
+  },
+  {
+    "caseId": "eeff137789f5809b",
+    "effect": "COMMIT",
+    "licensed": false
+  },
+  {
+    "caseId": "fb2611e1d3d255a9",
+    "effect": "COMMIT",
+    "licensed": true
+  }
+]

@@ -1,0 +1,9 @@
+node_modules/
+.tmp-test/
+dist/
+upstream/
+*.tmp
+*.log
+.DS_Store
+.results-local/
+coverage/

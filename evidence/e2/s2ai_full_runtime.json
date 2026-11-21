@@ -1,0 +1,104 @@
+{
+  "scope": "Unmodified full upstream MCP server through official SDK InMemoryTransport",
+  "source_commit": "9509fb8bba8ad15f7cdb79a54dbd850c13eb058b",
+  "google_api": "upstream test mock",
+  "transport": "InMemoryTransport",
+  "checks": {
+    "tools_list_search": true,
+    "tools_call_equal": true,
+    "same_google_request": true,
+    "omits_coverage_field": true,
+    "pagination_visible": true,
+    "hit_visible": true,
+    "error_distinct": true
+  },
+  "observations": [
+    {
+      "id": "TOOLS_LIST",
+      "total_tools": 130,
+      "search_tool_name": "search"
+    },
+    {
+      "id": "EMPTY_COVERAGE_COLLISION",
+      "provider_cases": [
+        {
+          "files": [],
+          "incompleteSearch": false
+        },
+        {
+          "files": [],
+          "incompleteSearch": true
+        }
+      ],
+      "args": {
+        "query": "deployment blocker"
+      },
+      "google_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "result_a": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "result_b": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "hash_a": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "hash_b": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad"
+    },
+    {
+      "id": "PAGE_CONTROL",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n\n\nMore results available. Use pageToken: next-page-012\nPass orderBy: modifiedTime desc again to keep this ordering."
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "HIT_CONTROL",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 1 files (ordered by modifiedTime desc):\nincident.txt (text/plain) [id: f123, path: /] [created: N/A, modified: N/A]"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "ERROR_CONTROL",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Error: mock transport error"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ],
+  "node": "v22.23.5"
+}

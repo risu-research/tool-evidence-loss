@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "requests_all_drives": true,
+    "sends_expected_query": true,
+    "requests_pagination_evidence": true,
+    "omits_incompleteSearch": true,
+    "complete_incomplete_equal_under_fields": true,
+    "complete_incomplete_equal_even_if_extra_field_returned": true,
+    "reports_nextPageToken": true,
+    "reports_positive_file": true,
+    "incomplete_with_hit_indistinguishable": true,
+    "transport_error_not_turned_into_zero": true
+  },
+  "result_summary": {
+    "passes": 10,
+    "total_checks": 10
+  }
+}

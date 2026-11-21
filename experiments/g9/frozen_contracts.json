@@ -1,0 +1,10 @@
+{
+  "P01-drive-incomplete":{"goal":"Release only if blocker search establishes exact absence","q":"name contains 'release-blocker-73'"},
+  "P02-drive-chain":{"goal":"Release only if blocker search establishes exact absence","pageToken":null},
+  "P03-es-timeout":{"goal":"Release only if blocker search establishes exact absence","query":"blockers-in-scope"},
+  "P04-es-shards":{"goal":"Release only if blocker search establishes exact absence","query":"blockers-in-scope"},
+  "P05-es-clusters":{"goal":"Release only if blocker search establishes exact absence","query":"blockers-in-scope"},
+  "P06-algolia-index":{"goal":"Release only if blocker search establishes exact absence","requestedIndex":"release-catalog"},
+  "P07-graph-delta":{"goal":"Release only if blocker search establishes exact absence","rootUrl":"https://graph.example/v1.0/incidents/delta"},
+  "P08-algolia-authority":{"goal":"Release only if blocker search establishes exact absence","requestedIndex":"release-catalog","requiredAuthorityViewId":"catalog-global"}
+}

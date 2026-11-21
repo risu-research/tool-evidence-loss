@@ -1,0 +1,42 @@
+[
+  {
+    "pairId": "P01-drive-incomplete",
+    "field": "q",
+    "positiveAct": true,
+    "negativeAct": false,
+    "mutationDidNotChangeSourceDecision": true,
+    "mutationR3Unchanged": true
+  },
+  {
+    "pairId": "P02-drive-chain",
+    "field": "pageToken",
+    "positiveAct": true,
+    "negativeAct": false,
+    "mutationDidNotChangeSourceDecision": true,
+    "mutationR3Unchanged": true
+  },
+  {
+    "pairId": "P06-algolia-index",
+    "field": "requestedIndex",
+    "positiveAct": true,
+    "negativeAct": false,
+    "mutationDidNotChangeSourceDecision": true,
+    "mutationR3Unchanged": true
+  },
+  {
+    "pairId": "P07-graph-delta",
+    "field": "rootUrl",
+    "positiveAct": true,
+    "negativeAct": false,
+    "mutationDidNotChangeSourceDecision": true,
+    "mutationR3Unchanged": true
+  },
+  {
+    "pairId": "P08-algolia-authority",
+    "field": "requiredAuthorityViewId",
+    "positiveAct": true,
+    "negativeAct": false,
+    "mutationDidNotChangeSourceDecision": true,
+    "mutationR3Unchanged": true
+  }
+]

@@ -1,0 +1,6 @@
+CASE,MODE,INCOMPLETE,HITS,WRITE,HTTP_WRITE_COUNT,READBACK_CONFIRMED,SEARCH_SHA256
+P_COMPLETE,projection,false,0,true,1,true,a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad
+P_INCOMPLETE,projection,true,0,true,1,true,a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad
+Q_INCOMPLETE,source_control,true,0,false,0,false,a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad
+Q_COMPLETE,source_control,false,0,true,1,true,a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad
+P_POSITIVE,projection,false,1,false,0,false,d5594170fa32dcd4e15a3f17877c23ab872ebfc04dd1fe6ef415136ccbd0ebb8

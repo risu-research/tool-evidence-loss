@@ -1,0 +1,82 @@
+[
+  {
+    "caseId": "0c545807416c895e",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "28fc76c12c0a26a2",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "3e6e8271fccb0dff",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "4e1cc4e490ba761f",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "586c14c53ade7789",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "65e2128271ac3f04",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "6625ead6d57db94e",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "7f7c9c851b83b519",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "9f07497433d8f8f8",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "a2757f7e76020150",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "ab1a435c69b13c7a",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "acfb7ef59615c9f8",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "b1d80fb7aebdbd20",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "e7d259693a032486",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  },
+  {
+    "caseId": "eeff137789f5809b",
+    "effect": "COMMIT",
+    "expectedDecision": "BLOCK"
+  },
+  {
+    "caseId": "fb2611e1d3d255a9",
+    "effect": "COMMIT",
+    "expectedDecision": "ACT"
+  }
+]

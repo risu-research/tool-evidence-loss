@@ -1,0 +1,66 @@
+[
+  {
+    "pairId": "P04-es-shards",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P03-es-timeout",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P01-drive-incomplete",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P07-graph-delta",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P08-algolia-authority",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P06-algolia-index",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P02-drive-chain",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  },
+  {
+    "pairId": "P05-es-clusters",
+    "cases": 2,
+    "sameCompleteVisibleTranscript": true,
+    "sameToolResult": true,
+    "oppositeExpectedActions": true,
+    "oppositeActualSourceActions": true
+  }
+]

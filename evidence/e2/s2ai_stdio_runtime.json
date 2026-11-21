@@ -1,0 +1,35 @@
+{
+  "source_commit": "9509fb8bba8ad15f7cdb79a54dbd850c13eb058b",
+  "transport": "stdio",
+  "google_api": "test mock",
+  "distinct_source_values": [
+    false,
+    true
+  ],
+  "tools": 130,
+  "checks": {
+    "tools_list": true,
+    "tools_call_result_equal": true
+  },
+  "results": {
+    "complete": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Found 0 files (ordered by modifiedTime desc):\n"
+        }
+      ],
+      "isError": false
+    },
+    "incomplete": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Found 0 files (ordered by modifiedTime desc):\n"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "sha256": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad"
+}

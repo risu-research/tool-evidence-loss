@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "expected": {
+    "3e6e8271fccb0dff": {"pairId":"P01-drive-incomplete","family":"google-drive-incomplete-search","expected":"ALLOW"},
+    "4e1cc4e490ba761f": {"pairId":"P01-drive-incomplete","family":"google-drive-incomplete-search","expected":"BLOCK"},
+    "a2757f7e76020150": {"pairId":"P02-drive-chain","family":"google-drive-pagination-chain","expected":"ALLOW"},
+    "eeff137789f5809b": {"pairId":"P02-drive-chain","family":"google-drive-pagination-chain","expected":"BLOCK"},
+    "7f7c9c851b83b519": {"pairId":"P03-es-timeout","family":"elasticsearch-timeout","expected":"ALLOW"},
+    "28fc76c12c0a26a2": {"pairId":"P03-es-timeout","family":"elasticsearch-timeout","expected":"BLOCK"},
+    "fb2611e1d3d255a9": {"pairId":"P04-es-shards","family":"elasticsearch-shard-coverage","expected":"ALLOW"},
+    "0c545807416c895e": {"pairId":"P04-es-shards","family":"elasticsearch-shard-coverage","expected":"BLOCK"},
+    "e7d259693a032486": {"pairId":"P05-es-clusters","family":"elasticsearch-cross-cluster-coverage","expected":"ALLOW"},
+    "acfb7ef59615c9f8": {"pairId":"P05-es-clusters","family":"elasticsearch-cross-cluster-coverage","expected":"BLOCK"},
+    "ab1a435c69b13c7a": {"pairId":"P06-algolia-index","family":"algolia-effective-index","expected":"ALLOW"},
+    "6625ead6d57db94e": {"pairId":"P06-algolia-index","family":"algolia-effective-index","expected":"BLOCK"},
+    "b1d80fb7aebdbd20": {"pairId":"P07-graph-delta","family":"microsoft-graph-delta-terminal","expected":"ALLOW"},
+    "586c14c53ade7789": {"pairId":"P07-graph-delta","family":"microsoft-graph-delta-terminal","expected":"BLOCK"},
+    "65e2128271ac3f04": {"pairId":"P08-algolia-authority","family":"algolia-authority-view","expected":"ALLOW"},
+    "9f07497433d8f8f8": {"pairId":"P08-algolia-authority","family":"algolia-authority-view","expected":"BLOCK"}
+  }
+}

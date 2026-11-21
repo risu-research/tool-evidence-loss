@@ -1,0 +1,281 @@
+{
+  "scope": "isolated execution of verbatim upstream search branch, synthetic Google API stub",
+  "upstream": {
+    "repo": "piotr-agier/google-drive-mcp",
+    "commit": "9509fb8bba8ad15f7cdb79a54dbd850c13eb058b",
+    "file": "src/tools/drive.ts",
+    "upstream_git_blob_sha": "a32a46a470d1ee14a5fa9a81a3885eb8dbd29739",
+    "extracted_branch_sha256": "926927bf12971509c864a314f1815367eede2e9babb9422aa106ae4f213e44c2"
+  },
+  "runtime": {
+    "node": "v22.16.0",
+    "typescript": "5.8.3"
+  },
+  "checks": {
+    "requests_all_drives": true,
+    "sends_expected_query": true,
+    "requests_pagination_evidence": true,
+    "omits_incompleteSearch": true,
+    "complete_incomplete_equal_under_fields": true,
+    "complete_incomplete_equal_even_if_extra_field_returned": true,
+    "reports_nextPageToken": true,
+    "reports_positive_file": true,
+    "incomplete_with_hit_indistinguishable": true,
+    "transport_error_not_turned_into_zero": true
+  },
+  "passes": 10,
+  "total_checks": 10,
+  "cases": [
+    {
+      "id": "E1_complete_zero",
+      "upstream_raw": {
+        "files": [],
+        "incompleteSearch": false
+      },
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "raised": null
+    },
+    {
+      "id": "E2_incomplete_zero",
+      "upstream_raw": {
+        "files": [],
+        "incompleteSearch": true
+      },
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "raised": null
+    },
+    {
+      "id": "E3_complete_zero_overshare",
+      "upstream_raw": {
+        "files": [],
+        "incompleteSearch": false
+      },
+      "injected_API_behavior": "overshare_for_robustness",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files",
+        "incompleteSearch"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "raised": null
+    },
+    {
+      "id": "E4_incomplete_zero_overshare",
+      "upstream_raw": {
+        "files": [],
+        "incompleteSearch": true
+      },
+      "injected_API_behavior": "overshare_for_robustness",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files",
+        "incompleteSearch"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "a5be37d3004d8527b76a6b43ebd99cb7bc6d291a68446ce7d26d6a44afcd04ad",
+      "raised": null
+    },
+    {
+      "id": "E5_more_pages",
+      "upstream_raw": {
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": "token-next"
+      },
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files",
+        "nextPageToken"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 0 files (ordered by modifiedTime desc):\n\n\nMore results available. Use pageToken: token-next\nPass orderBy: modifiedTime desc again to keep this ordering."
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "9fa3034dbe3491197a144d120edf33e370f661a140e0fb6a0722c813144e3b0f",
+      "raised": null
+    },
+    {
+      "id": "E6_hit_count",
+      "upstream_raw": {
+        "files": [
+          {
+            "id": "file-1",
+            "name": "safety-review.txt",
+            "mimeType": "text/plain"
+          }
+        ],
+        "incompleteSearch": false
+      },
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 1 files (ordered by modifiedTime desc):\nsafety-review.txt (text/plain) [id: file-1, path: /] [created: N/A, modified: N/A]"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "e3e02e0e0963e599a2fe8674cc38fdb575442b3a7e7f5d426db64ce3730f4829",
+      "raised": null
+    },
+    {
+      "id": "E7_incomplete_with_hit",
+      "upstream_raw": {
+        "files": [
+          {
+            "id": "file-1",
+            "name": "safety-review.txt",
+            "mimeType": "text/plain"
+          }
+        ],
+        "incompleteSearch": true
+      },
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": [
+        "files"
+      ],
+      "model_facing_result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Found 1 files (ordered by modifiedTime desc):\nsafety-review.txt (text/plain) [id: file-1, path: /] [created: N/A, modified: N/A]"
+          }
+        ],
+        "isError": false
+      },
+      "model_facing_sha256": "e3e02e0e0963e599a2fe8674cc38fdb575442b3a7e7f5d426db64ce3730f4829",
+      "raised": null
+    },
+    {
+      "id": "E8_error",
+      "upstream_raw": null,
+      "injected_API_behavior": "respect_fields_selection",
+      "requested_params": {
+        "q": "fullText contains 'deployment blocker' and trashed = false",
+        "pageSize": 50,
+        "fields": "nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, size, parents)",
+        "orderBy": "modifiedTime desc",
+        "corpora": "allDrives",
+        "includeItemsFromAllDrives": true,
+        "supportsAllDrives": true
+      },
+      "provider_returned_fields": null,
+      "model_facing_result": null,
+      "model_facing_sha256": null,
+      "raised": "mock upstream transport failure"
+    }
+  ]
+}

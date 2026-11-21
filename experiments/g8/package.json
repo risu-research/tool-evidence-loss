@@ -1,0 +1,11 @@
+{
+  "name": "runtime-transport-confirmation",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/client": "2.2.0",
+    "@modelcontextprotocol/server": "2.2.0",
+    "@openai/agents": "0.18.0",
+    "zod": "4.2.0"
+  }
+}

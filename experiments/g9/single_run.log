@@ -1,0 +1,20 @@
+{
+  "controlledFixtures": 16,
+  "pairs": 8,
+  "rawAdapterMatchesFrozenR3": 16,
+  "identicalCompleteVisibleTranscriptPairs": 8,
+  "identicalToolResultPairs": 8,
+  "oppositeSourceActionPairs": 8,
+  "originalLabelsMatched": 16,
+  "toolResultDistinctHashes": 1,
+  "genericCommits": 16,
+  "genericInvalidCommits": 8,
+  "qualifiedCommits": 8,
+  "qualifiedInvalidCommits": 0,
+  "modelVisibleEvidenceLeakages": 0,
+  "bindingPositiveControlsACT": 5,
+  "bindingMismatchControlsBLOCK": 5,
+  "bindingMutationsPreservedSourceAndProjection": 5,
+  "missingMetadataBLOCK": 16,
+  "pass": true
+}
