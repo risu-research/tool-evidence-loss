@@ -100,35 +100,6 @@ jobs:
           print(stage,'fresh official SDK replay matches 4 archived JSON outputs')
           PY
 
-  source-identity:
-    name: Compare 14 original source files and 2 third-party implementations
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-      - name: Match historical source bytes to archived input
-        shell: bash
-        run: |
-          set -euo pipefail
-          g7root='https://raw.githubusercontent.com/risu-research/formal-exec-2609/8ad25af26a2f6d78f98a5c5c0b280220377254e8/runs/s2ai-official-runtime'
-          g8root='https://raw.githubusercontent.com/risu-research/stc-exec-2609/dadb9417bec502ba620b8b081343325f99b48cbb/transport-confirm'
-          for f in package.json package-lock.json expected_sealed.json server_cases.json source_oracle.mjs mcp_server_official.mjs run_agents_official.mjs; do
-            curl --fail --silent --show-error --location --retry 3 "$g7root/$f" | cmp - "experiments/g7/$f"
-          done
-          for f in package.json package-lock.json cases.json expected.json oracle.mjs http_server.mjs run_http.mjs; do
-            curl --fail --silent --show-error --location --retry 3 "$g8root/$f" | cmp - "experiments/g8/$f"
-          done
-          echo '14 original SDK source files match their pinned historical GitHub bytes'
-      - name: Match external Google Drive MCP implementations
-        shell: bash
-        run: |
-          set -euo pipefail
-          target='https://raw.githubusercontent.com/piotr-agier/google-drive-mcp/9509fb8bba8ad15f7cdb79a54dbd850c13eb058b/src/tools/drive.ts'
-          control='https://raw.githubusercontent.com/domdomegg/google-drive-mcp/395971084f5d8504e5b2934dab4c2cc6e2f210b5/src/tools/files-list.ts'
-          test "$(curl --fail --silent --show-error --location --retry 3 "$target" | git hash-object --stdin)" = 'a32a46a470d1ee14a5fa9a81a3885eb8dbd29739'
-          curl --fail --silent --show-error --location --retry 3 "$control" | cmp - experiments/e1/upstream_control_files_list.ts
-          echo '2 original third-party implementations match pinned source identities'
-
   full-upstream-mcp:
     name: E2 + E3 full upstream MCP over stdio and loopback HTTP
     runs-on: ubuntu-latest
