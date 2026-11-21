@@ -1,0 +1,87 @@
+name: E4 historical Agno repair replay
+
+on:
+  push:
+    branches:
+      - e4-historical-agno-20261121
+    paths:
+      - 'experiments/e4/**'
+      - '.github/workflows/e4-agno.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  agno-original-before-after:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Obtain exact historical Agno source revisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git init --quiet upstream
+          git -C upstream remote add origin https://github.com/agno-agi/agno.git
+          git -C upstream fetch --quiet --no-tags --filter=blob:none --depth=1 origin \
+            bc563b724c2ea39368ca99b6cd45d36a64a7b1c5 \
+            9ff6d911131768470f91620ba40878a1f9372b61
+          git -C upstream worktree add --quiet --detach ../agno-before bc563b724c2ea39368ca99b6cd45d36a64a7b1c5
+          git -C upstream worktree add --quiet --detach ../agno-after 9ff6d911131768470f91620ba40878a1f9372b61
+          test "$(git -C agno-before rev-parse HEAD)" = bc563b724c2ea39368ca99b6cd45d36a64a7b1c5
+          test "$(git -C agno-after rev-parse HEAD)" = 9ff6d911131768470f91620ba40878a1f9372b61
+          test -z "$(git -C agno-before status --porcelain)"
+          test -z "$(git -C agno-after status --porcelain)"
+          git -C agno-before hash-object libs/agno/agno/tools/google/drive.py
+          git -C agno-after hash-object libs/agno/agno/tools/google/drive.py
+      - name: Install original Agno package and Google API dependencies
+        run: |
+          python -m pip install --no-cache-dir --disable-pip-version-check \
+            -e ./agno-after/libs/agno \
+            google-api-python-client google-auth-oauthlib google-auth-httplib2 \
+            pytest
+      - name: Reproduce original Agno before-repair tool and uploads
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          python experiments/e4/replay_agno.py \
+            --source agno-before --version before --output results/e4_before.json | tee results/e4_before.log
+      - name: Reproduce original Agno after-repair tool and uploads
+        shell: bash
+        run: |
+          set -euo pipefail
+          python experiments/e4/replay_agno.py \
+            --source agno-after --version after --output results/e4_after.json | tee results/e4_after.log
+      - name: Cross-version assessment
+        shell: bash
+        run: |
+          python experiments/e4/verify_pair.py \
+            results/e4_before.json results/e4_after.json \
+            --output results/e4_verification.json
+      - name: Run historical upstream Google Drive unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH="$PWD/agno-after/libs/agno" python -m pytest \
+            agno-after/libs/agno/tests/unit/tools/test_google_drive.py -q \
+            | tee results/e4_upstream_test.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e4-historical-agno-before-after-evidence
+          if-no-files-found: warn
+          retention-days: 60
+          path: |
+            results/e4_before.json
+            results/e4_after.json
+            results/e4_verification.json
+            results/e4_before_http_receipts.jsonl
+            results/e4_after_http_receipts.jsonl
+            results/e4_before.log
+            results/e4_after.log
+            results/e4_upstream_test.log
