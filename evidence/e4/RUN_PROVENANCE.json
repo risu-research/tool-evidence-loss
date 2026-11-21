@@ -1,0 +1,21 @@
+{
+  "evidence_files": {
+    "e4_after.json": "e46416991989c694116486ee367d1cc75c2e5afebd1f16c88288e3bb33bb5fc9",
+    "e4_after_http_receipts.jsonl": "8508c2538399415c4f543ed0a22a903cbe059630d5df74480c05ccb281f66240",
+    "e4_before.json": "6f538e574f8c8d1000ae410937d4fe3c7b078ece8af8e38381f814ceb1325005",
+    "e4_before_http_receipts.jsonl": "4679a330279a86f3fdf382a6f5fcb5da9e201653f99681c71600f496856f095d",
+    "e4_discovery_after.json": "db430038844cf4d9e23504e60b5d2cb121cef8f2a93d6db976312f850aeef77e",
+    "e4_discovery_before.json": "dc1a81507d27700fad629eade0c34aba44f5a08fea2c793c39890ecb2e2349c9",
+    "e4_verification.json": "8408bc9d38363b41fa2a79ec3076435378d6f35c140d36d6191ca605a9805009"
+  },
+  "experiment": "E4 Agno historical repair replay",
+  "experiment_input_commit": "e81cb8e11476eace430ae640e0631ece811b1d75",
+  "github_actions_run": "44956374734",
+  "provider_effects": {
+    "after": 3,
+    "before": 2
+  },
+  "scenarios": 20,
+  "upstream_after": "9ff6d911131768470f91620ba40878a1f9372b61",
+  "upstream_before": "bc563b724c2ea39368ca99b6cd45d36a64a7b1c5"
+}

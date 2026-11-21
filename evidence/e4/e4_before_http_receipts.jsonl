@@ -1,0 +1,2 @@
+{"case": "COMPLETE_EMPTY", "file": {"id": "local-agno-1", "mimeType": "text/plain", "name": "release-cleared.txt", "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"}}
+{"case": "INCOMPLETE_EMPTY", "file": {"id": "local-agno-2", "mimeType": "text/plain", "name": "release-cleared.txt", "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"}}

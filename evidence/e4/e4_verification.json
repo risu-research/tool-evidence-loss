@@ -1,0 +1,27 @@
+{
+  "downstream_constraint": "only coverage-aware consumer blocks partial result after repair",
+  "merged_fix": "https://github.com/agno-agi/agno/pull/7824",
+  "original_issue": "https://github.com/agno-agi/agno/issues/7823",
+  "original_search_collision": "complete/incomplete identical before fix; distinct after fix",
+  "pass": true,
+  "provider_receipts": {
+    "after": 3,
+    "before": 2
+  },
+  "results": {
+    "after": {
+      "coverage": 1,
+      "projection": 2
+    },
+    "before": {
+      "coverage": 0,
+      "projection": 2
+    }
+  },
+  "scenario_count": 20,
+  "scope": "Local Google API provider, original Agno search/upload methods, deterministic caller",
+  "source_commits": {
+    "after": "9ff6d911131768470f91620ba40878a1f9372b61",
+    "before": "bc563b724c2ea39368ca99b6cd45d36a64a7b1c5"
+  }
+}

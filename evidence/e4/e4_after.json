@@ -1,0 +1,454 @@
+{
+  "python": "3.12.16",
+  "receipts": [
+    {
+      "case": "COMPLETE_EMPTY",
+      "file": {
+        "id": "local-agno-1",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt",
+        "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+      }
+    },
+    {
+      "case": "COMPLETE_EMPTY",
+      "file": {
+        "id": "local-agno-2",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt",
+        "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+      }
+    },
+    {
+      "case": "INCOMPLETE_EMPTY",
+      "file": {
+        "id": "local-agno-3",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt",
+        "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+      }
+    }
+  ],
+  "revision": "after",
+  "rows": [
+    {
+      "mode": "projection",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        },
+        {
+          "args": {
+            "fields": "id,name,mimeType,modifiedTime,size,webViewLink",
+            "mimetype": "text/plain",
+            "name": "release-cleared.txt",
+            "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+          },
+          "operation": "files.create"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [
+        {
+          "id": "local-agno-1",
+          "mimeType": "text/plain",
+          "name": "release-cleared.txt",
+          "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+        }
+      ],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "6df07a645ad534e12c546a44239793c55590177a8d30c65119fb70e7092e087c",
+      "state": "COMPLETE_EMPTY",
+      "upload_result": {
+        "id": "local-agno-1",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt"
+      },
+      "version": "after",
+      "write": true
+    },
+    {
+      "mode": "coverage",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        },
+        {
+          "args": {
+            "fields": "id,name,mimeType,modifiedTime,size,webViewLink",
+            "mimetype": "text/plain",
+            "name": "release-cleared.txt",
+            "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+          },
+          "operation": "files.create"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [
+        {
+          "id": "local-agno-2",
+          "mimeType": "text/plain",
+          "name": "release-cleared.txt",
+          "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+        }
+      ],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "6df07a645ad534e12c546a44239793c55590177a8d30c65119fb70e7092e087c",
+      "state": "COMPLETE_EMPTY",
+      "upload_result": {
+        "id": "local-agno-2",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt"
+      },
+      "version": "after",
+      "write": true
+    },
+    {
+      "mode": "projection",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        },
+        {
+          "args": {
+            "fields": "id,name,mimeType,modifiedTime,size,webViewLink",
+            "mimetype": "text/plain",
+            "name": "release-cleared.txt",
+            "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+          },
+          "operation": "files.create"
+        }
+      ],
+      "provider_incomplete": true,
+      "readback": [
+        {
+          "id": "local-agno-3",
+          "mimeType": "text/plain",
+          "name": "release-cleared.txt",
+          "sha256": "9056209d6561329bf63096857414f1fc238d9eae116f7eba75ea7f9a40391987"
+        }
+      ],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": true,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "cda9390b88d477b368ca0d3e428205ed87a82745927744d0f795a7ec350ca2b2",
+      "state": "INCOMPLETE_EMPTY",
+      "upload_result": {
+        "id": "local-agno-3",
+        "mimeType": "text/plain",
+        "name": "release-cleared.txt"
+      },
+      "version": "after",
+      "write": true
+    },
+    {
+      "mode": "coverage",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": true,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": true,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "cda9390b88d477b368ca0d3e428205ed87a82745927744d0f795a7ec350ca2b2",
+      "state": "INCOMPLETE_EMPTY",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "projection",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 1,
+        "files": [
+          {
+            "id": "blocker-7",
+            "name": "blocking-policy.txt"
+          }
+        ],
+        "incompleteSearch": false,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "69d952ba5e86a81a1133807a1fa887a8bf144a66f9fcd2a930803429758abe51",
+      "state": "POSITIVE_HIT",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "coverage",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 1,
+        "files": [
+          {
+            "id": "blocker-7",
+            "name": "blocking-policy.txt"
+          }
+        ],
+        "incompleteSearch": false,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "69d952ba5e86a81a1133807a1fa887a8bf144a66f9fcd2a930803429758abe51",
+      "state": "POSITIVE_HIT",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "projection",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": "page-two",
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "ec65b5ddc0f8725c01cc26e9e0e53c2afe42aec14e624340fde5e6fbeddd8308",
+      "state": "NEXT_PAGE",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "coverage",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": "page-two",
+        "query": "(name contains 'release') and trashed=false"
+      },
+      "returned_sha256": "ec65b5ddc0f8725c01cc26e9e0e53c2afe42aec14e624340fde5e6fbeddd8308",
+      "state": "NEXT_PAGE",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "projection",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "error": "Unexpected error: HTTPError: HTTP Error 503: Service Unavailable"
+      },
+      "returned_sha256": "4d41d2a0e5a999f60121c5433a8746bc236fa3917ab7a67407d3e19e582ed8ae",
+      "state": "API_FAILURE",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    },
+    {
+      "mode": "coverage",
+      "provider_calls": [
+        {
+          "args": {
+            "corpora": "allDrives",
+            "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+            "includeItemsFromAllDrives": true,
+            "orderBy": "modifiedTime desc",
+            "pageSize": 10,
+            "q": "(name contains 'release') and trashed=false",
+            "supportsAllDrives": true
+          },
+          "operation": "files.list"
+        }
+      ],
+      "provider_incomplete": false,
+      "readback": [],
+      "request_corpora": "allDrives",
+      "request_fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+      "returned": {
+        "error": "Unexpected error: HTTPError: HTTP Error 503: Service Unavailable"
+      },
+      "returned_sha256": "4d41d2a0e5a999f60121c5433a8746bc236fa3917ab7a67407d3e19e582ed8ae",
+      "state": "API_FAILURE",
+      "upload_result": null,
+      "version": "after",
+      "write": false
+    }
+  ],
+  "scope": "Historical original Agno method execution and local HTTP Google API stub",
+  "source": {
+    "commit": "9ff6d911131768470f91620ba40878a1f9372b61",
+    "git_blob": "654c4c4697191612f3cd72e32627c3e1a564eeba",
+    "path": "libs/agno/agno/tools/google/drive.py",
+    "sha256": "b0d8a8e9c69cc03c1537e0864c435b6fc5e5ef9db38b647f2a1e3deed7152c9e"
+  },
+  "summary": {
+    "api_error_writes": 0,
+    "cases": 10,
+    "controls": [
+      {
+        "async_equivalent": true,
+        "delegation": true,
+        "state": "COMPLETE_EMPTY"
+      },
+      {
+        "async_equivalent": true,
+        "delegation": true,
+        "state": "INCOMPLETE_EMPTY"
+      }
+    ],
+    "coverage_writes": 1,
+    "incomplete_coverage_writes": 1,
+    "projection_writes": 2,
+    "write_count": 3
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "revision": "after",
+  "source": {
+    "commit": "9ff6d911131768470f91620ba40878a1f9372b61",
+    "git_blob": "654c4c4697191612f3cd72e32627c3e1a564eeba",
+    "path": "libs/agno/agno/tools/google/drive.py",
+    "sha256": "b0d8a8e9c69cc03c1537e0864c435b6fc5e5ef9db38b647f2a1e3deed7152c9e"
+  },
+  "states": [
+    {
+      "provider_incomplete": false,
+      "request": {
+        "corpora": "allDrives",
+        "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+        "includeItemsFromAllDrives": "true",
+        "method": "GET",
+        "path": "/drive/v3/files",
+        "supportsAllDrives": "true"
+      },
+      "tool_result": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": false,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      }
+    },
+    {
+      "provider_incomplete": true,
+      "request": {
+        "corpora": "allDrives",
+        "fields": "nextPageToken, incompleteSearch, files(id, name, mimeType, modifiedTime, size, parents, description, webViewLink, webContentLink, owners(displayName, emailAddress))",
+        "includeItemsFromAllDrives": "true",
+        "method": "GET",
+        "path": "/drive/v3/files",
+        "supportsAllDrives": "true"
+      },
+      "tool_result": {
+        "count": 0,
+        "files": [],
+        "incompleteSearch": true,
+        "nextPageToken": null,
+        "query": "(name contains 'release') and trashed=false"
+      }
+    }
+  ],
+  "transport": "real googleapiclient Discovery v3; mocked HTTP responses"
+}
