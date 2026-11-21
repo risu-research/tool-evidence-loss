@@ -48,6 +48,26 @@ def frozen_audit():
     receipts=[json.loads(x) for x in (ROOT/'evidence/e3/e3_provider_writes.jsonl').read_text().splitlines()]
     require(len(receipts)==3 and len(e3['provider_writes'])==3,'E3 write receipts')
     for a,b in zip(receipts,e3['provider_writes']):require(a==b,'E3 independent write receipt')
+    e4base=ROOT/'evidence/e4'
+    e4=json.loads((e4base/'e4_verification.json').read_text())
+    require(e4['pass'] is True and e4['scenario_count']==20,'E4 scenario count')
+    require(e4['results']=={'before':{'projection':2,'coverage':0},
+                              'after':{'projection':2,'coverage':1}},'E4 effect outcomes')
+    require(e4['provider_receipts']=={'before':2,'after':3},'E4 provider write receipts')
+    for rev,sha in [('before','bc563b724c2ea39368ca99b6cd45d36a64a7b1c5'),
+                    ('after','9ff6d911131768470f91620ba40878a1f9372b61')]:
+        record=json.loads((e4base/f'e4_{rev}.json').read_text())
+        require(record['source']['commit']==sha and len(record['rows'])==10,
+                'E4 source pin / scenarios '+rev)
+        receipts=[json.loads(x) for x in (e4base/f'e4_{rev}_http_receipts.jsonl').read_text().splitlines()]
+        require(receipts==record['receipts'],'E4 independent receipt equality '+rev)
+        require(len(receipts)==e4['provider_receipts'][rev],'E4 receipt count '+rev)
+        discovery=json.loads((e4base/f'e4_discovery_{rev}.json').read_text())
+        require(discovery['pass'] and len(discovery['states'])==2,'E4 original discovery-client control '+rev)
+        results=[x['tool_result'] for x in discovery['states']]
+        require((results[0]==results[1])==(rev=='before'),
+                'E4 completeness distinction '+rev)
+    checks['E4-historical-repair']='20 cases; 5 recorded writes; original Google API Discovery controls'
     checks['recorded-cases']='G7 16; G8 16; G9 8 pairs; E1 10 checks; E2 2 transports; E3 5 scenarios'
     return checks
 
