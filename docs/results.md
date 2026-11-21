@@ -32,3 +32,20 @@ E3 runs the same full MCP implementation through stdio with a local HTTP provide
 ## Evidence boundary
 
 The input states use selected test fixtures. E3 writes affect a loopback test provider. The downstream decision is a fixed test rule. The observed five-case count describes this experiment. The study leaves production prevalence, model autonomy, and live Google Drive behavior open for independent measurements.
+
+## Historical Agno repair replay (E4)
+
+Agno [issue #7823](https://github.com/agno-agi/agno/issues/7823) documented a Google Drive `allDrives` search result that omitted `incompleteSearch`. Agno maintainers merged [PR #7824](https://github.com/agno-agi/agno/pull/7824) on May 19, 2026.
+
+E4 executes the original `GoogleDriveTools` at the immediate pre-merge and merged commits. Five controlled provider states run under two scripted consumer rules per revision. The original `upload_file` method creates a marker through a loopback HTTP provider when the corresponding rule allows it.
+
+| Consumer | Before fix, writes among five cases | After fix, writes among five cases |
+| --- | ---: | ---: |
+| Count and pagination only | 2 | 2 |
+| Count, pagination, and explicit complete coverage | 0 | 1 |
+
+Both versions of the count-only consumer upload under incomplete search coverage. The coverage-aware consumer blocks that case after repair and permits the complete-empty control. Under the pre-repair result, the completeness field is absent from the response, so the same consumer blocks both empty states. Positive-hit, next-page, and API-failure cases yield zero writes.
+
+The [recorded provider receipts](../evidence/e4/) confirm two actual local HTTP writes before repair and three after repair. An independent run through the installed Google API Discovery v3 client verifies the exact outbound `fields` parameters and the JSON outputs. The historical Agno Google Drive unit suite passes 55 tests at the repaired commit.
+
+The original Agno report establishes historical external relevance. The 20 source states and consumer rules remain bounded experimental fixtures. The measured counts describe replayed local effects.
