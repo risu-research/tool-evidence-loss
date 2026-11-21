@@ -7,3 +7,11 @@ E2 and E3 clone the original upstream server at its pinned commit during verific
 Node.js, the OpenAI Agents SDK, the MCP SDK, TypeScript, and Google API client packages retain their respective upstream licenses. Their installed versions are fixed by source-level lockfiles and published upstream package metadata.
 
 The target project's complete MIT license text is preserved at [`third_party/piotr-agier-google-drive-mcp-LICENSE.txt`](third_party/piotr-agier-google-drive-mcp-LICENSE.txt).
+
+## ClosureProbe corpus
+
+The 37-case exploratory comparison uses the original public [ClosureProbe corpus](https://github.com/risu-research/closureprobe/blob/12fae2c0cb0909a43f487323fb00e7372b1f3377/corpus/v0.3/cases.json), originally released on 2026-08-15.
+
+The complete frozen 50-case JSON, its schema, and the original Apache-2.0 notice are preserved under [`experiments/discovery37/source/`](experiments/discovery37/source/). The archived source and its original license retain their original copyright and attribution.
+
+The R0–R3 replay script was separately authored for the S2AI Table II comparison, using the pinned source observations and their published source-qualified labels.
