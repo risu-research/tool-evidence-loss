@@ -4,6 +4,11 @@ on:
   push:
     branches: [main, discovery37-repro-20261121]
     paths:
+      - 'EVIDENCE_SHA256SUMS.txt'
+      - 'README.md'
+      - 'docs/results.md'
+      - 'docs/provenance.md'
+      - 'THIRD_PARTY_NOTICES.md'
       - 'experiments/discovery37/**'
       - 'scripts/replay_discovery37.py'
       - '.github/workflows/discovery37.yml'
