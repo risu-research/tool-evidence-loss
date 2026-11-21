@@ -9,6 +9,7 @@
 | E1 target | [`piotr-agier/google-drive-mcp` commit `9509fb8`](https://github.com/piotr-agier/google-drive-mcp/commit/9509fb8bba8ad15f7cdb79a54dbd850c13eb058b) | E1 handler tests, 10 passing assertions |
 | E1 control | [`domdomegg/google-drive-mcp` commit `3959710`](https://github.com/domdomegg/google-drive-mcp/commit/395971084f5d8504e5b2934dab4c2cc6e2f210b5) | E1 registration tests, 5 passing assertions |
 | E2 | `piotr-agier/google-drive-mcp` @ `9509fb8`, original full server | [Actions run 44942276579](https://github.com/risu-research/stc-exec-2609/actions/runs/44942276579), 6 passing tests |
+| E4 | [`agno-agi/agno` before `bc563b7`, after `9ff6d91`](https://github.com/agno-agi/agno/pull/7824) | [Original Actions run 44956374734](https://github.com/risu-research/tool-evidence-loss/actions/runs/44956374734), 20 fixed cases; original Google Drive suite 55 tests |
 | E3 | `piotr-agier/google-drive-mcp` @ `9509fb8`, original full server | [Actions run 44943185337](https://github.com/risu-research/stc-exec-2609/actions/runs/44943185337), 6 passing tests |
 
 E2 tests originate from [commit `75f3038`](https://github.com/risu-research/stc-exec-2609/commit/75f3038e59383807f0b43ad22466e66000ad4d56). E3 tests originate from [commit `529a220`](https://github.com/risu-research/stc-exec-2609/commit/529a2209b274d637fea273020c15cc7dd4a52633). The external MCP server source remains at its upstream pin; the separate experiment modules are copied into the test directory during compilation.
@@ -23,6 +24,22 @@ E2 tests originate from [commit `75f3038`](https://github.com/risu-research/stc-
 - Original licensed source observations: 9
 - Original producer-profile verification: `node dist/src/cli.js corpus verify corpus/v0.3/cases.json` at the pinned historical commit
 - Independent Table II row and aggregate replay: `scripts/replay_discovery37.py`
+
+## E4 external repair identity
+
+- Independent defect report: [Agno #7823](https://github.com/agno-agi/agno/issues/7823), opened 2026-05-06
+- Merged repair: [Agno PR #7824](https://github.com/agno-agi/agno/pull/7824), merged 2026-05-19
+- First-parent source: `bc563b724c2ea39368ca99b6cd45d36a64a7b1c5`
+- Merged source: `9ff6d911131768470f91620ba40878a1f9372b61`
+- Source file: `libs/agno/agno/tools/google/drive.py`
+- Original before blob: `e7bf38548f561d3a5264a8da7e29b4905f17cea4`
+- Original after blob: `654c4c4697191612f3cd72e32627c3e1a564eeba`
+- Original before file SHA-256: `61d188540a7a0c2876e3633c803c9cc5c3b1ba33d4d50f5fb0c8230b85602e4f`
+- Original after file SHA-256: `b0d8a8e9c69cc03c1537e0864c435b6fc5e5ef9db38b647f2a1e3deed7152c9e`
+- Published results: [`evidence/e4`](../evidence/e4/)
+- Original successful run and raw execution logs: [Actions #44956374734](https://github.com/risu-research/tool-evidence-loss/actions/runs/44956374734)
+- GitHub Actions artifact ID: `14727329325`, SHA-256: `aa54e9cd963c212fbcf616cb1e0a542db304f6bed7948a84e850c2ba0a050934`
+- Installed library versions: [`requirements.lock`](../experiments/e4/requirements.lock)
 
 ## Artifact hashes
 
