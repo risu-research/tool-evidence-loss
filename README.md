@@ -16,7 +16,7 @@ A Google Drive MCP adapter returns an empty result after dropping search-coverag
 | E2 | Full upstream MCP server with in-memory and stdio clients | Identical MCP responses for complete and incomplete empty searches |
 | E3 | Full upstream MCP server, stdio client, local HTTP provider | 3 confirmed writes across 5 conditions, including 1 write under incomplete search coverage |
 | E4 | Original Agno GoogleDriveTools before and after merged repair | 20 scenarios; recovered completeness signal enables correct downstream write control |
-| E5 | Original agentgrep MCP search before and after resumable-page merge | 20 source-and-consumer tests, plus three-record cursor traversal through three complete pages |
+| E5 | Original agentgrep MCP search before and after resumable-page merge | 20 source-and-consumer tests, plus three-record cursor traversal over `bounded`, `bounded`, and `complete` pages |
 
 The 37-case exploratory comparison uses 37 observations from a previously published 50-case conformance corpus. G7–G9 share a separate frozen set of 16 controlled source cases. E1–E5 use pinned third-party implementation sources. E3 uses a fixed MCP client rule and verifies its test-provider write through MCP readback. E4 runs the original Agno tool before and after an independently reported repair, then validates local HTTP upload effects under two fixed consumer rules.
 
@@ -65,3 +65,7 @@ The original 16 states are controlled fixtures. E1–E3 introduce publicly autho
 ## Reuse
 
 The experiment harness and documents are shared under MIT. Third-party implementation excerpts retain their original licensing and attribution, as described in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+## Citation
+
+Cite the versioned GitHub release and its archived Zenodo record when reusing these experiments. See [`CITATION.cff`](CITATION.cff) for the software citation and [`.zenodo.json`](.zenodo.json) for the archival metadata.

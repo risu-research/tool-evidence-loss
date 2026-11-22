@@ -1,0 +1,18 @@
+{
+  "title": "When Tool Interfaces Lose Evidence Needed for Action: Reproducibility Artifact",
+  "upload_type": "software",
+  "description": "Reproducible research software and controlled evidence for the S2AI 2026 study of source-evidence loss in agent tool interfaces. Contains the frozen 37-case comparison, constructed MCP and SDK controls, external Google Drive MCP replays, historical Agno repair tests with local HTTP write receipts, and independent agentgrep pagination tests. Upstream source revisions and dependencies are pinned. See THIRD_PARTY_NOTICES.md for source-specific licenses.",
+  "creators": [
+    {
+      "name": "Lee, Moon Hwan",
+      "affiliation": "RISU Institute"
+    }
+  ],
+  "keywords": [
+    "AI agents",
+    "Model Context Protocol",
+    "tool-interface evidence",
+    "search completeness",
+    "reproducibility"
+  ]
+}

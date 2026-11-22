@@ -15,7 +15,7 @@ Agno `2.6.7` is installed directly from its pinned source checkout. The replay c
 
 ## What runs
 
-Five states are tested against two consumer rules and both source revisions, producing **20 independent conditions**. The provider returns complete-empty, incomplete-empty, positive-hit, next-page, and API-failure responses.
+Five states are tested against two consumer rules and both source revisions, producing **20 fixed run conditions**. The provider returns complete-empty, incomplete-empty, positive-hit, next-page, and API-failure responses.
 
 The original `search_files` method issues `files.list` through a local HTTP-backed Google service stub. When a consumer's fixed rule allows a follow-up action, the original Agno `upload_file` method sends `files.create` to that service. The HTTP provider writes a receipt at the time of the request. A separate state readback verifies the uploaded marker file and its SHA-256.
 
