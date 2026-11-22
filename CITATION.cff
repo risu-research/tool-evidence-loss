@@ -1,6 +1,10 @@
 cff-version: 1.2.0
 message: "Please cite this versioned reproducibility artifact when using its code or recorded evidence."
 type: software
+version: 1.0.0
+date-released: 2026-11-22
+doi: 10.5281/zenodo.24431133
+url: "https://doi.org/10.5281/zenodo.24431133"
 title: "When Tool Interfaces Lose Evidence Needed for Action: Reproducibility Artifact"
 authors:
   - family-names: Lee

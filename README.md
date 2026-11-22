@@ -68,4 +68,4 @@ The experiment harness and documents are shared under MIT. Third-party implement
 
 ## Citation
 
-Cite the versioned GitHub release and its archived Zenodo record when reusing these experiments. See [`CITATION.cff`](CITATION.cff) for the software citation and [`.zenodo.json`](.zenodo.json) for the archival metadata.
+The archived **v1.0.0** source and results have the version-specific DOI [10.5281/zenodo.24431133](https://doi.org/10.5281/zenodo.24431133). This [Zenodo record](https://zenodo.org/records/24431133) preserves the exact [GitHub v1.0.0 release](https://github.com/risu-research/tool-evidence-loss/releases/tag/v1.0.0). Use the version DOI to cite the experiments. See [`CITATION.cff`](CITATION.cff) for citation metadata and [`.zenodo.json`](.zenodo.json) for the archive's original deposit metadata.
