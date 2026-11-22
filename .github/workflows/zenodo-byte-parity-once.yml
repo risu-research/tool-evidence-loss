@@ -1,0 +1,63 @@
+name: Verify Zenodo archive byte parity once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/zenodo-byte-parity-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  exact-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ae377ef24b88cd58c9431e7ee8c6d9d9b96138d1
+          persist-credentials: false
+      - name: Verify source commit, Zenodo ZIP checksums and file-by-file source equality
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = ae377ef24b88cd58c9431e7ee8c6d9d9b96138d1
+          python3 - <<'PY'
+          import hashlib,io,json,subprocess,urllib.request,zipfile
+          record_url='https://zenodo.org/api/records/24431133'
+          with urllib.request.urlopen(urllib.request.Request(record_url,headers={'User-Agent':'S2AI-Zenodo-Byte-Verification/1.0'}),timeout=30) as h:
+              obj=json.load(h)
+          assert obj['doi']=='10.5281/zenodo.24431133'
+          assert obj['metadata']['version']=='v1.0.0'
+          key='risu-research/tool-evidence-loss-v1.0.0.zip'
+          meta=next(x for x in obj['files'] if x['key']==key)
+          with urllib.request.urlopen(urllib.request.Request(meta['links']['self'],headers={'User-Agent':'S2AI-Zenodo-Byte-Verification/1.0'}),timeout=45) as h:
+              content=h.read()
+          md5=hashlib.md5(content).hexdigest()
+          assert md5==meta['checksum'].split(':')[-1]
+          assert len(content)==meta['size']
+          paths=[x for x in subprocess.check_output(['git','ls-files','-z']).decode().split('\0') if x]
+          assert len(paths)==128,len(paths)
+          with zipfile.ZipFile(io.BytesIO(content)) as z:
+              members={i.filename:i for i in z.infolist() if not i.is_dir()}
+              expected=set()
+              failures=[]
+              for path in paths:
+                  found=[n for n in members if n==path or n.endswith('/'+path)]
+                  if len(found)!=1:
+                      failures.append([path,'path count',len(found)])
+                      continue
+                  key=found[0]
+                  expected.add(key)
+                  with z.open(members[key]) as h:
+                      archived=h.read()
+                  with open(path,'rb') as h:
+                      checkout=h.read()
+                  if hashlib.sha256(archived).digest()!=hashlib.sha256(checkout).digest():
+                      failures.append([path,'content SHA256'])
+              extra=sorted(set(members)-expected)
+              print('ZENODO_BYTE_PARITY_RESULTS='+json.dumps({'doi':obj['doi'],'bytes':len(content),'md5':md5,'tracked':len(paths),'archive_files':len(members),'failures':failures,'extra':extra},sort_keys=True),flush=True)
+              assert not failures and not extra
+          print('ZENODO_EXACT_TAG_FILE_PARITY=PASS',flush=True)
+          PY
