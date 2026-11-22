@@ -41,14 +41,16 @@ jobs:
           assert len(paths)==128,len(paths)
           with zipfile.ZipFile(io.BytesIO(content)) as z:
               members={i.filename:i for i in z.infolist() if not i.is_dir()}
+              roots=[n[:-len('EVIDENCE_SHA256SUMS.txt')] for n in members if n.endswith('/EVIDENCE_SHA256SUMS.txt')]
+              assert len(roots)==1,roots
+              archive_prefix=roots[0]
               expected=set()
               failures=[]
               for path in paths:
-                  found=[n for n in members if n==path or n.endswith('/'+path)]
-                  if len(found)!=1:
-                      failures.append([path,'path count',len(found)])
+                  key=archive_prefix+path
+                  if key not in members:
+                      failures.append([path,'missing expected path'])
                       continue
-                  key=found[0]
                   expected.add(key)
                   with z.open(members[key]) as h:
                       archived=h.read()
